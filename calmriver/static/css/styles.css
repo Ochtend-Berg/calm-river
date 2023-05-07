@@ -1,0 +1,57 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex; 
+  flex-direction: column; 
+  min-height: 100vh;
+}
+
+nav {
+  background-color: #006633;
+}
+
+main {
+  height: 100%;
+  width: 100%;
+  margin-top: auto;
+}
+
+header > img {
+  height: 100px; 
+  width: 100%;
+}
+
+.form-tag {
+  width: 45%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+select, input, textarea {
+  border: 1px solid #ced4da;
+}
+
+.input-group-text {
+  width: 5%;
+  padding: 0;
+}
+
+.form-control-lg {
+  width: 95%;
+}
+
+footer {
+  height: 100px;
+  width: 100%;
+  background-color: #006633;
+  margin-top: auto;
+  flex: 0 0 50px;
+}
+
+#img-roomtype {
+  height: 380px; 
+  width: 570px;
+}
+
