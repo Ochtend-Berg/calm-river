@@ -10,7 +10,7 @@ from calmriver.forms import LoginForm, RegistrationForm, ReviewForm
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('index.html')
 
 
 # ------------------------------------------------------------------------------------------------------------------------------------------ #
@@ -42,14 +42,11 @@ def rooms_step4():
 
 # ------------------------------------------------------------------------------------------------------------------------------------------ #
 
-@app.route('/reviews/index')
-def reviews_index():
-    reviews = Review.query.all()
-    return render_template('reviews/index.html', reviews=reviews)
 
-
-@app.route('/reviews/create', methods=['GET', 'POST'])
-def reviews_create():
+@app.route('/reviews', methods=['GET', 'POST'])
+def reviews():
+    # User.query.order_by(User.popularity.desc()).limit(10).all()
+    reviews = Review.query.order_by(Review.created_at.desc()).limit(10).all()
     form = ReviewForm()
 
     if form.validate_on_submit():
@@ -64,9 +61,9 @@ def reviews_create():
 
         flash('Dank voor uw recensie.')
 
-        return redirect(url_for('index'))
+        return redirect(url_for('reviews'))
 
-    return render_template('reviews/create.html', form=form)
+    return render_template('reviews/index.html', form=form, reviews=reviews)
 
 
 # ------------------------------------------------------------------------------------------------------------------------------------------ #
