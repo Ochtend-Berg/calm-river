@@ -3,6 +3,7 @@
 from bootstrap import app, db
 from imports import *
 from models.User import User
+from models.Room_type import Room_type
 from models.Review import Review
 from forms import LoginForm, RegistrationForm, ReviewForm
 
@@ -18,11 +19,22 @@ def home():
 @app.route('/rooms')
 def rooms():
     active_page = 'rooms'
-    return render_template('rooms/rooms.html', active_page=active_page)
+    room_types = Room_type.query.all()
 
-@app.route('/rooms/step-1')
-def rooms_step1():
+    for room_type in room_types:
+        print(room_type)
+
+        print('----')
+
+    return render_template('rooms/rooms.html', room_types=room_types, active_page=active_page)
+
+@app.route('/rooms/step-1/<slug>')
+def rooms_step1(slug):
     active_page = 'rooms'
+    is_valid_room = Room_type.query.filter_by(slug=slug).first()
+    if is_valid_room is None:
+        return redirect(url_for('rooms'), code=302)
+
     return render_template('rooms/step-1.html', active_page=active_page)
 
 @app.route('/rooms/step-2')

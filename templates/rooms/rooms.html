@@ -2,26 +2,42 @@
 
 {% block content %}
 
+<style>
+    img {
+        border-radius: 5px;
+    }
+
+    .row :nth-child(even) {
+        background-color: #f2f2f2;
+    }
+</style>
+
 <div class="container mt-4 mb-4">
   <div class="row">
-      <div class="col-12 col-sm-6 mb-3">
+      {% for room in room_types %}
+      <div class="col-12 col-sm-6 mb-5">
           <div class="text-center">
-            <img class="img-fluid d-block d-sm-none d-md-none" src="{{ url_for('static',filename='img/doublequeen-mobile.jpg') }}" alt="double queen">
-            <img class="img-fluid d-none d-sm-block d-md-none" src="{{ url_for('static',filename='img/doublequeen-tablet.jpg') }}" alt="double queen">
-            <img class="img-fluid d-none d-sm-none d-md-block" src="{{ url_for('static',filename='img/doublequeen-desktop.jpg') }}" alt="double queen">
+            <img class="img-fluid d-block d-sm-none d-md-none" src="{{ url_for('static',filename="img/%s-mobile.jpg" % (room.slug)) }}" alt={{ room.slug }}>
+            <img class="img-fluid d-none d-sm-block d-md-none" src="{{ url_for('static',filename="img/%s-tablet.jpg" % (room.slug)) }}" alt={{ room.slug }}>
+            <img class="img-fluid d-none d-sm-none d-md-block" src="{{ url_for('static',filename="img/%s-desktop.jpg" % (room.slug)) }}" alt={{ room.slug }}>
           </div>
       </div>
-      <div class="col-12 col-sm-6">
-          <strong>Double Queen</strong>
+      <div class="col-12 col-sm-6 mb-5" style="border-radius: 15px">
+          <strong>{{ room.name }}</strong>
             <ul class="list-unstyled">
-              <li><i class="fas fa-bed mt-3 me-3 fs-1"></i>4 personen</li>
-              <li><i class="fas fa-user-friends mt-3 me-3 fs-1"></i>4 personen</li>
-              <li><i class="fas fa-hot-tub mt-3 me-3 fs-1"></i>&nbsp; Bubbelbad: Aanwezig</li>
-              <li><i class="fas fa-wifi mt-3 me-3 fs-1"></i>Wifi: Aanwezig</li>
+              <li><i class="fas fa-bed mt-3 me-3 fs-1"></i>
+                  {{ room.bed_persons }} {{ 'personen' if room.bed_persons > 1 else 'persoon' }}
+              </li>
+              <li><i class="fas fa-user-friends mt-3 me-3 fs-1"></i>
+                  {{ room.max_persons }} {{ 'personen' if room.max_persons > 1 else 'persoon' }}
+              </li>
+              <li><i class="fas fa-hot-tub mt-3 me-3 fs-1"></i>&nbsp; Bubbelbad: {{ 'Aanwezig' if room.has_bath == 1 else 'Niet Aanwezig' }}</li>
+              <li><i class="fas fa-wifi mt-3 me-3 fs-1"></i>Wifi: {{ 'Aanwezig' if room.has_wifi == 1 else 'Niet Aanwezig' }}</li>
             </ul>
-            <button type="button" class="btn btn-lg btn-warning mt-4 me-3 text-white">Boek een Kamer</button>
-            <span class="mt-1 d-inline-block">Prijs:&nbsp;120<small><sup>EUR&nbsp;per&nbsp;nacht</sup></small></span>
+            <a type="button" href="/rooms/step-1/{{ room.slug }}" class="btn btn-lg btn-warning mt-4 mb-2 me-3 text-white">Boek een Kamer</a>
+            <span class="mt-1 d-inline-block">Prijs:&nbsp;{{ room.price }}<small><sup>EUR&nbsp;per&nbsp;nacht</sup></small></span>
       </div>
+      {% endfor %}
   </div>
 </div>
 
