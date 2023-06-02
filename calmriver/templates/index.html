@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .home-button {
+        width: 100%;
+        height: 50px;
+        padding: 10px;
+        background-color: rgb(212, 155, 32);
+        color: rgb(234, 226, 236);
+        border: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+    }
+    .carousel {
+        width: 100%;
+        margin: 0 auto;
+    }
+    .carousel-inner img {
+        width: 100%;
+        height: auto;
+    }
+</style>
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-3">
+            <button type="button" class="home-button" onclick="toggleSection('hotel')">
+                Hotel
+            </button> <br><br>
+            <button type="button" class="home-button" onclick="toggleSection('kamers')">
+                Kamers
+            </button> <br><br>
+            <button type="button" class="home-button" onclick="toggleSection('omgeving')">
+                Omgeving
+            </button> <br><br>
+            <button type="button" class="home-button" onclick="toggleSection('boeken')">
+                Boeken
+            </button> <br><br>
+        </div>
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-3">
+            <div id="hotel" style="display: block">
+                <h1>Hotel</h1>
+                <p>"Stap binnen in een wereld van luxe en comfort in ons prachtige hotel. Gelegen aan de pittoreske kustlijn biedt ons hotel adembenemende uitzichten op de azuurblauwe zee en de glinsterende zandstranden. Bij aankomst wordt u begroet door ons vriendelijke personeel, dat er alles aan doet om uw verblijf onvergetelijk te maken. Met een moderne architectuur en stijlvolle interieurs straalt het hotel een elegante en ontspannen sfeer uit die u meteen betovert."</p>
+            </div>
+            <div id="kamers" style="display: none">
+                <h1>Kamer</h1>
+                <p>"Onze ruime en comfortabele kamers zijn zorgvuldig ontworpen met uw comfort in gedachten. Elke kamer is voorzien van moderne voorzieningen en een smaakvolle inrichting, zodat u zich direct thuis voelt. Geniet van een goede nachtrust in het luxe kingsize bed en ontwaak elke ochtend met een prachtig uitzicht op de oceaan of de weelderige tuinen. Verwen uzelf in de luxe badkamer met hoogwaardige toiletartikelen en ontspan in de gezellige zithoek met een verfrissend drankje uit de minibar."</p>
+            </div>
+            <div id="omgeving" style="display: none">
+                <h1>Omgeving</h1>
+                <p>"Gastvrijheid en gastronomie staan centraal in ons hotel. Ontdek een scala aan culinaire hoogstandjes in onze restaurants, waar getalenteerde chefs heerlijke gerechten bereiden met verse, lokale ingrediënten. Of u nu op zoek bent naar een intiem diner bij kaarslicht, een informele lunch aan het zwembad of een gezellige avond in de bar, we hebben voor elk wat wils."</p>
+            </div>
+
+            <div id="boeken" style="display: none">
+                <h1>Boeken</h1>
+                <p>"Ons hotel is gezegend met een betoverende omgeving die u uitnodigt om de pracht van de natuur te verkennen. Omringd door weelderige groene landschappen, glooiende heuvels en adembenemende panorama's, kunt u genieten van serene wandelingen in de natuur of avontuurlijke excursies in de nabijgelegen bergen. Verken de idyllische stranden en verfris uzelf in het kristalheldere water."</p>
+            </div>
+        </div>
+        <!-- Carousel -->
+        <div class="col-12 col-sm-12 col-md-12 col-lg-4 mb-3">
+            <div id="demo" class="carousel slide" data-bs-ride="carousel">
+                <!-- Indicators/dots -->
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+                </div>
+
+                <!-- The slideshow/carousel -->
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{{url_for('static', filename='img/hotel-mobile.jpg')}}" class="d-block d-sm-none d-md-none" style="width:100%">
+                        <img src="{{url_for('static', filename='img/hotel-tablet.jpg')}}" class="d-none d-sm-block d-md-none" style="width:100%">
+                        <img src="{{url_for('static', filename='img/hotel-desktop.jpg')}}" class="d-none d-sm-none d-md-block" style="width:100%">
+                        <div class="carousel-caption">
+                            <h4>Mooi gelegen!</h4>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{url_for('static', filename='img/bed-mobile.jpg')}}" class="d-block d-sm-none d-md-none" style="width:100%">
+                        <img src="{{url_for('static', filename='img/bed-tablet.jpg')}}" class="d-none d-sm-block d-md-none" style="width:100%">
+                        <img src="{{url_for('static', filename='img/bed-desktop.jpg')}}" class="d-none d-sm-none d-md-block" style="width:100%">
+                        <div class="carousel-caption">
+                            <h4>Goede nachtrust!</h4>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{url_for('static', filename='img/river-mobile.jpeg')}}" class="d-block d-sm-none d-md-none" style="width:100%">
+                        <img src="{{url_for('static', filename='img/river-tablet.jpeg')}}" class="d-none d-sm-block d-md-none" style="width:100%">
+                        <img src="{{url_for('static', filename='img/river-desktop.jpeg')}}" class="d-none d-sm-none d-md-block" style="width:100%">
+                        <div class="carousel-caption">
+                            <h4>Heerlijk wandelen!</h4>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{url_for('static', filename='img/bar-mobile.jpg')}}" class="d-block d-sm-none d-md-none" style="width:100%">
+                        <img src="{{url_for('static', filename='img/bar-tablet.jpg')}}" class="d-none d-sm-block d-md-none" style="width:100%">
+                        <img src="{{url_for('static', filename='img/bar-desktop.jpg')}}" class="d-none d-sm-none d-md-block" style="width:100%">
+                        <div class="carousel-caption">
+                            <h4>Lekker genieten!</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleSection(sectionId) {
+        var sections = ["hotel", "kamers", "omgeving", "boeken"];
+        sections.forEach(function (id) {
+            var section = document.getElementById(id);
+            section.style.display = id === sectionId ? "block" : "none";
+        });
+    }
+</script>
+{% endblock %}

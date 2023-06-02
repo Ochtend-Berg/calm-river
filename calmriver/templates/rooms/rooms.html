@@ -2,22 +2,26 @@
 
 {% block content %}
 
-<div class="row mt-4 mb-4">
-  <div class="col">
-    <div class="text-center">
-      <img class="img-fluid" id="img-roomtype" src="{{ url_for('static',filename='img/doublequeen.jpg') }}" alt="double queen">
-    </div>
-  </div>
-  <div class="col">
-    <strong>Double Queen</strong>
-    <ul class="list-unstyled">
-      <li><i class="fas fa-bed mt-3 me-3 fs-1"></i>4 personen</li>
-      <li><i class="fas fa-user-friends mt-3 me-3 fs-1"></i>4 personen</li>
-      <li><i class="fas fa-hot-tub mt-3 me-3 fs-1"></i>Bubbelbad: Aanwezig</li>
-      <li><i class="fas fa-wifi mt-3 me-3 fs-1"></i>Wifi: Aanwezig</li>
-    </ul>
-    <button type="button" class="btn btn-lg btn-warning mt-4 me-3 text-white">Boek een Kamer</button>
-    <span>Prijs: 120<small><sup>EUR per nacht</sup></small></span>
+<div class="container mt-4 mb-4">
+  <div class="row">
+      <div class="col-12 col-sm-6 mb-3">
+          <div class="text-center">
+            <img class="img-fluid d-block d-sm-none d-md-none" src="{{ url_for('static',filename='img/doublequeen-mobile.jpg') }}" alt="double queen">
+            <img class="img-fluid d-none d-sm-block d-md-none" src="{{ url_for('static',filename='img/doublequeen-tablet.jpg') }}" alt="double queen">
+            <img class="img-fluid d-none d-sm-none d-md-block" src="{{ url_for('static',filename='img/doublequeen-desktop.jpg') }}" alt="double queen">
+          </div>
+      </div>
+      <div class="col-12 col-sm-6">
+          <strong>Double Queen</strong>
+            <ul class="list-unstyled">
+              <li><i class="fas fa-bed mt-3 me-3 fs-1"></i>4 personen</li>
+              <li><i class="fas fa-user-friends mt-3 me-3 fs-1"></i>4 personen</li>
+              <li><i class="fas fa-hot-tub mt-3 me-3 fs-1"></i>Bubbelbad: Aanwezig</li>
+              <li><i class="fas fa-wifi mt-3 me-3 fs-1"></i>Wifi: Aanwezig</li>
+            </ul>
+            <button type="button" class="btn btn-lg btn-warning mt-4 me-3 text-white">Boek een Kamer</button>
+            <p><span>Prijs: 120<small><sup>EUR per nacht</sup></small></span></p>
+      </div>
   </div>
 </div>
 
