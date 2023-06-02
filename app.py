@@ -1,10 +1,10 @@
 # ------------------------------------------------------------------------------------------------------------------------------------------ #
 
-from calmriver import app, db
-from calmriver.imports import *
-from calmriver.models import User, Review
-from calmriver.forms import LoginForm, RegistrationForm, ReviewForm
-
+from bootstrap import app, db
+from imports import *
+from models.User import User
+from models.Review import Review
+from forms import LoginForm, RegistrationForm, ReviewForm
 
 # ------------------------------------------------------------------------------------------------------------------------------------------ #
 
@@ -13,7 +13,6 @@ def home():
     active_page = 'home'
     return render_template('index.html', active_page=active_page)
 
-
 # ------------------------------------------------------------------------------------------------------------------------------------------ #
 
 @app.route('/rooms')
@@ -21,33 +20,27 @@ def rooms():
     active_page = 'rooms'
     return render_template('rooms/rooms.html', active_page=active_page)
 
-
 @app.route('/rooms/step-1')
 def rooms_step1():
     active_page = 'rooms'
     return render_template('rooms/step-1.html', active_page=active_page)
-
 
 @app.route('/rooms/step-2')
 def rooms_step2():
     active_page = 'rooms'
     return render_template('rooms/step-2.html', active_page=active_page)
 
-
 @app.route('/rooms/step-3')
 def rooms_step3():
     active_page = 'rooms'
     return render_template('rooms/step-3.html', active_page=active_page)
-
 
 @app.route('/rooms/step-4')
 def rooms_step4():
     active_page = 'rooms'
     return render_template('rooms/step-4.html', active_page=active_page)
 
-
 # ------------------------------------------------------------------------------------------------------------------------------------------ #
-
 
 @app.route('/reviews', methods=['GET', 'POST'])
 def reviews():
@@ -72,24 +65,20 @@ def reviews():
 
     return render_template('reviews/index.html', form=form, reviews=reviews, active_page=active_page)
 
-
 # ------------------------------------------------------------------------------------------------------------------------------------------ #
 
 @app.route('/privacy')
 def privacy():
     return render_template('privacy.html')
 
-
 @app.route('/disclaimer')
 def disclaimer():
     return render_template('disclaimer.html')
-
 
 @app.route('/contact')
 def contact():
     active_page = 'contact'
     return render_template('contact.html', active_page=active_page)
-
 
 # ------------------------------------------------------------------------------------------------------------------------------------------ #
 
@@ -97,16 +86,13 @@ def contact():
 def bookings_index():
     return render_template('bookings/index.html')
 
-
 @app.route('/bookings/show')
 def bookings_show():
     return render_template('bookings/show.html')
 
-
 @app.route('/bookings/edit')
 def bookings_edit():
     return render_template('bookings/edit.html')
-
 
 # ------------------------------------------------------------------------------------------------------------------------------------------ #
 
@@ -114,7 +100,6 @@ def bookings_edit():
 @login_required
 def welcome():
     return render_template('welcome.html')
-
 
 # ------------------------------------------------------------------------------------------------------------------------------------------ #
 
@@ -140,7 +125,6 @@ def login():
 
     return render_template('login.html', form=form)
 
-
 # ------------------------------------------------------------------------------------------------------------------------------------------ #
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -158,7 +142,6 @@ def register():
 
     return render_template('register.html', form=form)
 
-
 # ------------------------------------------------------------------------------------------------------------------------------------------ #
 
 @app.route('/logout')
@@ -167,7 +150,6 @@ def logout():
     logout_user()
     flash('Je bent nu uitgelogd!')
     return redirect(url_for('home'))
-
 
 # ------------------------------------------------------------------------------------------------------------------------------------------ #
 

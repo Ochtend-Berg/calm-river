@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------------------------------------------------------------------ #
 
-from calmriver.models import User
-from calmriver.imports import *
+from models.User import User
+from imports import *
 
 # ------------------------------------------------------------------------------------------------------------------------------------------ #
 
@@ -9,7 +9,6 @@ class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Wachtwoord', validators=[DataRequired()])
     submit = SubmitField('Log In!')
-
 
 class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -33,7 +32,6 @@ class ReviewForm(FlaskForm):
     email = StringField('E-mail', validators=[DataRequired(), Email()], render_kw={"placeholder": "Typ hier uw e-mail", "class": "form-control"})
     comment = TextAreaField('Opmerking', render_kw={"placeholder": "Schrijf hier uw bericht.", "class": "form-control"})
     rating_id = SelectField('Beoordeling', choices=[('5', '⭐⭐⭐⭐⭐'), ('4', '⭐⭐⭐⭐'), ('3', '⭐⭐⭐'), ('2', '⭐⭐'), ('1', '⭐')], validators=[DataRequired()], render_kw={"class": "form-select"})
-    submit = SubmitField('Plaats bericht!', render_kw={"class": "btn btn-lg btn-warning me-3 text-white"})
+    submit = SubmitField('Plaats bericht!', render_kw={"class": "btn btn-lg btn-warning mb-5 me-3 text-white"})
 
 # ------------------------------------------------------------------------------------------------------------------------------------------ #
-
