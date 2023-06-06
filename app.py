@@ -36,6 +36,8 @@ def rooms():
 @app.route('/rooms/step-1/<slug>', methods=['GET', 'POST'])
 def rooms_step1(slug):
     if request.method == 'POST':
+
+        # CREATING FORM DATA
         form_data = {}
         form = request.form
         for v in form:
@@ -46,13 +48,23 @@ def rooms_step1(slug):
         return redirect(url_for('rooms_step2', slug=request.form["room_type"]))
 
     else:
+        # SHOWS ACTIVE LINK ON NAVIGATION
         active_page = 'rooms'
+
+        # URL WHICH REMEMBERS WHAT THE PREVIOUS VISITED PAGE IS.
         session["url"] = 'rooms_step1'
 
+        # COLLECTS DATA OF PREVIOUS STEP
         previous_data = session.get('form_data', '')
+
+        # GETS SELECTED ROOM_TYPE: Double Queen, Single King, ETC.
         get_room_type = Room_type.query.filter_by(slug=slug).first()
+
+        # IF NO VALID ROOM_TYPE IS SELECTED, GO BACK TO ROOMS PAGE
         if get_room_type is None:
             return redirect(url_for('rooms'), code=302)
+
+        # ELSE: COLLECT ALL ROOMS FROM THAT ROOM_TYPE AND REDIRECT TO STEP 1
         else:
             get_rooms = Room.query.filter_by(room_type_id=get_room_type.id).all()
             return render_template('rooms/step-1.html', active_page=active_page, get_room_type=get_room_type,
@@ -61,6 +73,8 @@ def rooms_step1(slug):
 
 @app.route('/rooms/step-2/<slug>', methods=['GET', 'POST'])
 def rooms_step2(slug):
+
+    # IF NO DATA OF STEP 1: REDIRECT BACK TO PREVIOUS LINK
     if 'form_data' not in session:
         url = session.get('url', 'rooms')
         if url == 'rooms':
@@ -69,6 +83,8 @@ def rooms_step2(slug):
             flash('Vul eerst de gegevens van de huidge stap in!', 'danger')
             return redirect(url_for(url, slug=slug), code=302)
 
+    # IF POST REQUEST IS MADE:
+    # CREATE FORM_DATA OBJECT AND PUT ALL FORM DATA IN THAT OBJECT
     if request.method == 'POST':
         form_data = {}
         form = request.form
@@ -115,6 +131,9 @@ def rooms_step3(slug):
         is_paid = False
         notes = request.form['notes']
 
+        # GENERATES RANDOM ORDER NUMBER
+        # IF ORDER NUMBER ALREADY EXISTS IN DATABASE:
+        # GENERATE A NEW ONE
         order_number_exists = True
         while order_number_exists:
             order_number = random.randint(1000000, 9999999)
