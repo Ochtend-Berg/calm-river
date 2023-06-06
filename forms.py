@@ -7,18 +7,26 @@ from imports import *
 # ------------------------------------------------------------------------------------------------------------------------------------------ #
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Wachtwoord', validators=[DataRequired()])
-    submit = SubmitField('Log In!')
+    email = StringField('Email', validators=[DataRequired(), Email()],
+                        render_kw={"placeholder": "name@example.com", "class": "form-control"})
+    password = PasswordField('Wachtwoord', validators=[DataRequired()],
+                             render_kw={"placeholder": "*******", "class": "form-control"})
+    submit = SubmitField('Log In!', render_kw={"class": "btn btn-outline-success"})
 
 
 class RegistrationForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    username = StringField('Usernaam', validators=[DataRequired()])
-    password = PasswordField('Wachtwoord', validators=[DataRequired(), EqualTo('pass_confirm',
-                                                                               message='Wachtwoorden moeten overeenkomen!')])
-    pass_confirm = PasswordField('Bevestig wachtwoord', validators=[DataRequired()])
-    submit = SubmitField('Registreer!')
+    email = StringField('Email', validators=[DataRequired(), Email()],
+                        render_kw={"placeholder": "name@example.com", "class": "form-control"})
+    username = StringField('Usernaam', validators=[DataRequired()],
+                           render_kw={"placeholder": "Gebruiker", "class": "form-control"})
+    password = PasswordField('Wachtwoord', validators=[DataRequired(),
+                                                       EqualTo('pass_confirm',
+                                                               message='Wachtwoorden moeten overeenkomen!')],
+                             render_kw={"placeholder": "*******", "class": "form-control"})
+
+    pass_confirm = PasswordField('Bevestig wachtwoord', validators=[DataRequired()],
+                                 render_kw={"placeholder": "*******", "class": "form-control"})
+    submit = SubmitField('Registreer!', render_kw={"class": "btn btn-outline-success"})
 
     def check_email(self, field):
         # Check of het e-mailadres al in de database voorkomt!

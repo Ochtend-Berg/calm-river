@@ -73,7 +73,6 @@ def rooms_step1(slug):
 
 @app.route('/rooms/step-2/<slug>', methods=['GET', 'POST'])
 def rooms_step2(slug):
-
     # IF NO DATA OF STEP 1: REDIRECT BACK TO PREVIOUS LINK
     if 'form_data' not in session:
         url = session.get('url', 'rooms')
@@ -277,41 +276,43 @@ def bookings_edit():
 
 # ------------------------------------------------------------------------------------------------------------------------------------------ #
 
-@app.route('/welcome')
-@login_required
-def welcome():
-    return render_template('welcome.html')
-
-
-# ------------------------------------------------------------------------------------------------------------------------------------------ #
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    active_page = 'my_calm_river'
     form = LoginForm()
 
     if form.validate_on_submit():
         # GRAB USER FROM USER MODELS TABLE
         user = User.query.filter_by(email=form.email.data).first()
+
+        if user is None:
+            flash('Gebruiker bestaat niet.', 'danger')
+            return redirect(url_for('login'), code=302)
+
         # CHECK PASSWORD USER
         if user.check_password(form.password.data) and user is not None:
             login_user(user)
             flash('Logged in successfully.')
+
             # IF USER WAS TRYING TO VIST A PAGE THAT REQUIRES A LOGIN
             # FLASK SAVES THAT URL AS 'NEXT'
             next = request.args.get('next')
             # CHECKS IF URL THAT REQUIRES A LOGIN EXISTS
             # OTHERWISE GO TO WELKOM PAGE
             if next == None or not next[0] == '/':
-                next = url_for('welkom')
+                next = url_for('my_profile')
             return redirect(next)
+        else:
+            flash('U heeft verkeerde gegevens ingevoerd!', 'danger')
 
-    return render_template('login.html', form=form)
+    return render_template('auth/login.html', form=form, active_page=active_page)
 
 
 # ------------------------------------------------------------------------------------------------------------------------------------------ #
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    active_page = 'my_calm_river'
     form = RegistrationForm()
 
     if form.validate_on_submit():
@@ -319,11 +320,11 @@ def register():
         db.session.add(user)
         db.session.commit()
 
-        flash('Dank voor de registratie. Er kan nu ingelogd worden!')
+        flash('Dank voor de registratie. Er kan nu ingelogd worden!', 'success')
 
         return redirect(url_for('login'))
 
-    return render_template('register.html', form=form)
+    return render_template('auth/register.html', form=form, active_page=active_page)
 
 
 # ------------------------------------------------------------------------------------------------------------------------------------------ #
@@ -332,8 +333,22 @@ def register():
 @login_required
 def logout():
     logout_user()
-    flash('Je bent nu uitgelogd!')
-    return redirect(url_for('home'))
+    flash('Je bent nu uitgelogd!', 'danger')
+    return redirect(url_for('login'))
+
+
+# ------------------------------------------------------------------------------------------------------------------------------------------ #
+
+@app.route('/my-profile/index')
+@login_required
+def my_profile():
+    return render_template('profile/index.html')
+
+
+@app.route('/my-profile/bookings')
+@login_required
+def my_bookings():
+    return render_template('profile/bookings.html')
 
 
 # ------------------------------------------------------------------------------------------------------------------------------------------ #

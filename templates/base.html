@@ -36,16 +36,18 @@
           <li class="nav-item">
             <a class="nav-link text-white {% if active_page == 'reviews' %}bg-success{% endif %}" href="{{ url_for('reviews') }}">Gastenboek</a>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown {% if active_page == 'my_calm_river' %}bg-success{% endif %}">
             <a class="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown">Mijn Calm River</a>
             <ul class="dropdown-menu">
             {% if current_user.is_authenticated %}
-              <li><a class="dropdown-item {% if active_page == 'bookings_index' %}bg-success{% endif %}" href="{{ url_for('bookings_index') }}">Beheer</a></li>
+{#            <li><a class="dropdown-item {% if active_page == 'bookings_index' %}bg-success{% endif %}" href="{{ url_for('bookings_index') }}">Beheer</a></li>#}
+              <li><a class="dropdown-item" href="{{ url_for('my_bookings') }}">Boekingen</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('my_profile') }}">Profiel</a></li>
               <li><a class="dropdown-item" href="{{ url_for('logout') }}" onclick="event.preventDefault(); document.getElementById('form-logout').submit();">Uitloggen</a></li>
               <form id="form-logout" action="logout" method="POST" style="display: none;"></form>
             {% else %}
-              <li><a class="dropdown-item {% if active_page == 'login' %}bg-success{% endif %}" href="{{ url_for('login') }}">Inloggen</a></li>
-              <li><a class="dropdown-item {% if active_page == 'register' %}bg-success{% endif %}" href="{{ url_for('register') }}">Registreren</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('login') }}">Inloggen</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('register') }}">Registreren</a></li>
             {% endif %}
             </ul>
           </li>
