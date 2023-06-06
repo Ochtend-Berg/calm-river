@@ -43,7 +43,7 @@
 {#            <li><a class="dropdown-item {% if active_page == 'bookings_index' %}bg-success{% endif %}" href="{{ url_for('bookings_index') }}">Beheer</a></li>#}
               <li><a class="dropdown-item" href="{{ url_for('my_bookings') }}">Boekingen</a></li>
               <li><a class="dropdown-item" href="{{ url_for('my_profile') }}">Profiel</a></li>
-              <li><a class="dropdown-item" href="{{ url_for('logout') }}" onclick="event.preventDefault(); document.getElementById('form-logout').submit();">Uitloggen</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('logout') }}">Uitloggen</a></li>
               <form id="form-logout" action="logout" method="POST" style="display: none;"></form>
             {% else %}
               <li><a class="dropdown-item" href="{{ url_for('login') }}">Inloggen</a></li>

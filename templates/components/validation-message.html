@@ -1,0 +1,10 @@
+{% for field, errors in form.errors.items() %}
+<div class="alert alert-danger alert-dismissible">
+ <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+ <strong>{{ ', '.join(errors) }}</strong>
+</div>
+{% endfor %}
+
+
+
+

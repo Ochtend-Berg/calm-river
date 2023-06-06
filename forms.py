@@ -42,7 +42,7 @@ class RegistrationForm(FlaskForm):
 class ReviewForm(FlaskForm):
     name = StringField('Naam', validators=[DataRequired()],
                        render_kw={"placeholder": "Typ hier uw naam", "class": "form-control"})
-    email = StringField('E-mail', validators=[DataRequired(), Email()],
+    email = StringField('E-mail', validators=[DataRequired(), Email(message="Ongeldig e-mailadres")],
                         render_kw={"placeholder": "Typ hier uw e-mail", "class": "form-control"})
     comment = TextAreaField('Opmerking', render_kw={"placeholder": "Schrijf hier uw bericht.", "class": "form-control"})
     rating_id = SelectField('Beoordeling',

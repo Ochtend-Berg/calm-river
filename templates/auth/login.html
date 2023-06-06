@@ -19,6 +19,12 @@
     .container {
         color: green;
     }
+    .error-input {
+      border-color: red;
+      border-width: 1px;
+      border-style: solid;
+      background-color: yellow;
+    }
 </style>
 
 <div class="container">
@@ -30,12 +36,13 @@
         <div class="row d-flex justify-content-center">
           <div class="col-12 col-md-8 col-lg-6">
             {% include 'components/flash-message.html' %}
+            {% include 'components/validation-message.html' %}
             <div class="card bg-white">
               <div class="card-body p-5">
                 <form class="mb-3 mt-md-4">
                   <h2 class="fw-bold mb-2 text-uppercase ">Mijn Calm River</h2>
                   <div class="mb-3">
-                    {{ form.email.label }} {{ form.email() }}
+                    {{ form.email.label }} {{ form.email(class_=' '.join(['form-control'] + (['error-input'] if form.email.errors else []))) }}
                   </div>
                   <div class="mb-3">
                     {{ form.password.label }} {{ form.password() }}

@@ -3,10 +3,10 @@
 from bootstrap import app, db
 from imports import *
 
+
 # ------------------------------------------------------------------------------------------------------------------------------------------ #
 
 class Bookings_customer(db.Model):
-
     # INTERACTION TABLE BETWEEN BOOKINGS AND CUSTOMERS
     __tablename__ = 'bookings_customers'
 

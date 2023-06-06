@@ -34,6 +34,10 @@ login_manager.init_app(app)
 # -- SETS VIEW THAT IS RESPONSIBLE FOR LOGIN -- #
 login_manager.login_view = "login"
 
+# -- SETS MESSAGE WHEN USER IS NOT LOGGED IN-- #
+login_manager.login_message = 'Je moet ingelogd zijn om deze pagina te bezoeken!'
+login_manager.login_message_category = 'warning'
+
 # ------------------------------------------------------------------------------------------------------------------------------------------ #
 
 with app.app_context():

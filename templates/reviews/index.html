@@ -38,20 +38,26 @@
       border: none;
       cursor: pointer;
     }
-    form input[type="submit"]:hover {
-      background-color: #45a049;
+    .error-input {
+      border-color: red;
+      border-width: 1px;
+      border-style: solid;
+      background-color: yellow;
     }
 </style>
 
 <div class="container mt-3">
 <div class="row">
   {% include 'components/flash-message.html' %}
+  {% include 'components/validation-message.html' %}
 
   <div class="col-md-6 mb-3">
     <form method="POST">
         {{ form.hidden_tag() }}
         {{ form.name.label }} {{ form.name() }}<br>
-        {{ form.email.label }} {{ form.email() }}<br>
+        {{ form.email.label }} {{ form.email(class_=' '.join(['form-control'] + (['error-input'] if form.email.errors else []))) }}
+
+        <br>
         {{ form.comment.label }} {{ form.comment() }}<br>
         {{ form.rating_id.label }} {{ form.rating_id() }}<br>
         {{ form.submit() }}
