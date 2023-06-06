@@ -4,7 +4,40 @@
 
 <div class="row mt-4 mb-4">
   <div class="col">
+      <form method="post">
+        <input type="hidden" id="first_name" name="first_name" value="{{ previous_data['first_name'] }}">
+        <input type="hidden" id="last_name" name="last_name" value="{{ previous_data['last_name'] }}">
+        <input type="hidden" id="email" name="email" value="{{ previous_data['email'] }}">
+        <input type="hidden" id="room_id" name="room_type" value="{{ previous_data['room_type'] }}">
+        <input type="hidden" id="room_name" name="room_name" value="{{ previous_data['room_name'] }}">
+        <input type="hidden" id="room_number" name="room_number" value="{{ previous_data['room_number'] }}">
+        <input type="hidden" id="date_start" name="date_start" value="{{ previous_data['date_start'] }}">
+        <input type="hidden" id="date_end" name="date_end" value="{{ previous_data['date_end'] }}">
+        <input type="hidden" id="notes" name="notes" value="{{ previous_data['notes'] }}">
 
+      <div class="form-tag mb-3">
+        <div class="breadcrumb flat" style="text-align: center">
+            <a href="/rooms/step-1/{{ previous_data['room_type'] }}">Stap 1</a>
+            <a href="/rooms/step-2/{{ previous_data['room_type'] }}">Stap 2</a>
+            <a href="/rooms/step-3/{{ previous_data['room_type'] }}" class="active">Stap 3</a>
+            <a href="/rooms/step-4/{{ previous_data['room_type'] }}">Reservering</a>
+        </div>
+
+        <div>Voornaam: <span>{{ previous_data['first_name'] }}</span></div> <br>
+        <div>Achternaam: <span>{{ previous_data['last_name'] }}</span></div> <br>
+        <div>E-mail: <span>{{ previous_data['email'] }}</span></div> <br>
+        <div>Kamertype: <span>{{ previous_data['room_name'] }}</span></div> <br>
+        <div>Kamernummer: <span>{{ previous_data['room_number'] }}</span></div> <br>
+        <div>Startdatum:  <span>{{ previous_data['date_start'] }}</span></div> <br>
+        <div>Einddatum:    <span>{{ previous_data['date_end'] }}</span></div> <br>
+        <div style="margin-bottom: 20px">Notities: <br><br> <textarea disabled>{{ previous_data['notes'] }}</textarea></div>
+      </div>
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-success btn-lg me-3 text-white">Plaats een reserving</button>
+          <button type="submit" class="btn btn-warning btn-lg me-3 text-white">Teruggaan</button>
+        </div>
+      </form>
   </div>
 </div>
 

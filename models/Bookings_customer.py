@@ -15,8 +15,8 @@ class Bookings_customer(db.Model):
     booking_id = db.Column(db.Integer, db.ForeignKey('bookings.id'), index=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
     customer_id = db.Column(db.Integer, db.ForeignKey('customers.id'), index=True)
-    created_at = db.Column(db.DateTime, nullable=False, unique=False, index=False, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, nullable=False, unique=False, index=False, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, nullable=True, unique=False, index=False, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, nullable=True, unique=False, index=False, default=datetime.utcnow)
 
     # -- CONSTRUCTOR -- #
     def __init__(self, booking_id, user_id, customer_id):

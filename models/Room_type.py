@@ -20,8 +20,8 @@ class Room_type(db.Model):
     has_wifi = db.Column(db.Integer, index=True)
     price = db.Column(db.Float, index=True)
     description = db.Column(db.Text, index=True)
-    created_at = db.Column(db.DateTime, nullable=False, unique=False, index=False, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, nullable=False, unique=False, index=False, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, nullable=True, unique=False, index=False, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, nullable=True, unique=False, index=False, default=datetime.utcnow)
 
     # -- CONSTRUCTOR -- #
     def __init__(self, name, slug, max_persons, bed_persons, has_bath, has_wifi, price, description):

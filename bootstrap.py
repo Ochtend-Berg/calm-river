@@ -47,7 +47,6 @@ with app.app_context():
   from models import Rate
   from models import Booking
   from models import Bookings_customer
-  from models import Rating
   from models import Review
 
   db.create_all()

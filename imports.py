@@ -11,7 +11,7 @@ from flask import request
 from flask import session
 from flask import url_for
 from flask_wtf import FlaskForm
-from wtforms import (StringField, BooleanField, DateTimeField, RadioField, SelectField, TextAreaField, IntegerField, PasswordField, SubmitField)
+from wtforms import (StringField, BooleanField, DateField, DateTimeField, RadioField, SelectField, TextAreaField, IntegerField, PasswordField, SubmitField)
 from wtforms import ValidationError
 from wtforms.validators import DataRequired, Email, EqualTo                    
 from flask_sqlalchemy import SQLAlchemy

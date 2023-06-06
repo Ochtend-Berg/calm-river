@@ -15,8 +15,8 @@ class Rate(db.Model):
     value = db.Column(db.Integer, index=True)
     room_type_id = db.Column(db.Integer, db.ForeignKey('room_types.id'))
     is_weekend = db.Column(db.Boolean())
-    created_at = db.Column(db.DateTime, nullable=False, unique=False, index=False, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, nullable=False, unique=False, index=False, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, nullable=True, unique=False, index=False, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, nullable=True, unique=False, index=False, default=datetime.utcnow)
 
     # -- CONSTRAINTS -- #
     __table_args__ = (db.UniqueConstraint('room_type_id', 'is_weekend', name='unique_room_constraint'), None)

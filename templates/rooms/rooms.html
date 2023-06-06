@@ -13,7 +13,18 @@
 </style>
 
 <div class="container mt-4 mb-4">
-  <div class="row">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+       {% if messages %}
+         {% for category, message in messages %}
+           <div class="alert alert-{{ category }} alert-dismissible">
+             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+             <strong>{{ message|capitalize }}</strong>
+           </div>
+         {% endfor %}
+       {% endif %}
+     {% endwith %}
+     <div class="row">
+
       {% for room in room_types %}
       <div class="col-12 col-sm-6 mb-5">
           <div class="text-center">
@@ -31,8 +42,12 @@
               <li><i class="fas fa-user-friends mt-3 me-3 fs-1"></i>
                   {{ room.max_persons }} {{ 'personen' if room.max_persons > 1 else 'persoon' }}
               </li>
+                {% if room.has_bath == 1 %}
               <li><i class="fas fa-hot-tub mt-3 me-3 fs-1"></i>&nbsp; Bubbelbad: {{ 'Aanwezig' if room.has_bath == 1 else 'Niet Aanwezig' }}</li>
+                {% endif %}
+                {% if room.has_wifi == 1 %}
               <li><i class="fas fa-wifi mt-3 me-3 fs-1"></i>Wifi: {{ 'Aanwezig' if room.has_wifi == 1 else 'Niet Aanwezig' }}</li>
+                {% endif %}
             </ul>
             <a type="button" href="/rooms/step-1/{{ room.slug }}" class="btn btn-lg btn-warning mt-4 mb-2 me-3 text-white">Boek een Kamer</a>
             <span class="mt-1 d-inline-block">Prijs:&nbsp;{{ room.price }}<small><sup>EUR&nbsp;per&nbsp;nacht</sup></small></span>

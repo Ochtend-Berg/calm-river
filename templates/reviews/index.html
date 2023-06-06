@@ -45,6 +45,17 @@
 
 <div class="container mt-3">
 <div class="row">
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }} alert-dismissible">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong>{{ message|capitalize }}</strong>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
   <div class="col-md-6 mb-3">
     <form method="POST">
         {{ form.hidden_tag() }}

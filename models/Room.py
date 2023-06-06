@@ -14,8 +14,8 @@ class Room(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     number = db.Column(db.Integer, unique=True, index=True)
     room_type_id = db.Column(db.Integer, db.ForeignKey('room_types.id'), index=True)
-    created_at = db.Column(db.DateTime, nullable=False, unique=False, index=False, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, nullable=False, unique=False, index=False, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, nullable=True, unique=False, index=False, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, nullable=True, unique=False, index=False, default=datetime.utcnow)
 
     # -- CONSTRUCTOR -- #
     def __init__(self, number, room_type_id):

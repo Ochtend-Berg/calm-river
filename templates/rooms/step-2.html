@@ -4,9 +4,61 @@
 
 <div class="row mt-4 mb-4">
   <div class="col">
+    <form method="post">
+      <input type="hidden" id="room_type" name="room_type" value="{{ previous_data['room_type'] }}">
+      <input type="hidden" id="room_name" name="room_name" value="{{ previous_data['room_name'] }}">
+      <input type="hidden" id="room_number" name="room_number" value="{{ previous_data['room_number'] }}">
+      <input type="hidden" id="date_start" name="date_start" value="{{ previous_data['date_start'] }}">
+      <input type="hidden" id="date_end" name="date_end" value="{{ previous_data['date_end'] }}">
+      <input type="hidden" id="notes" name="notes" value="{{ previous_data['notes'] }}">
 
+      <div class="form-tag mb-3">
+        <div class="breadcrumb flat" style="text-align: center">
+            <a href="/rooms/step-1/{{ previous_data['room_type'] }}">Stap 1</a>
+            <a href="/rooms/step-2/{{ previous_data['room_type'] }}" class="active">Stap 2</a>
+            <a href="/rooms/step-3/{{ previous_data['room_type'] }}">Stap 3</a>
+            <a href="/rooms/step-4/{{ previous_data['room_type'] }}">Reservering</a>
+        </div>
+        <div class="input-group">
+          <span class="input-group-text"></span>
+            <label>
+                <input required type="text" class="form-control-lg" placeholder="Voornaam" id="first_name" name="first_name" value="{{ previous_data_2.first_name }}">
+            </label>
+        </div>
+        <small class="form-text ms-3 text-muted">Geef je voornaam.</small>
+      </div>
+
+      <div class="form-tag mb-3">
+        <div class="input-group">
+          <span class="input-group-text"></span>
+            <label>
+                <input required type="text" class="form-control-lg" placeholder="Achternaam" id="last_name" name="last_name" value="{{ previous_data_2.last_name }}">
+            </label>
+        </div>
+        <small class="form-text ms-3 text-muted">Geef je achternaam.</small>
+      </div>
+
+      <div class="form-tag mb-3">
+        <div class="input-group">
+          <span class="input-group-text"></span>
+            <label>
+                <input required type="email" class="form-control-lg" placeholder="Email" id="email" name="email" value="{{ previous_data_2.email }}">
+            </label>
+        </div>
+        <small class="form-text ms-3 text-muted">Geef je email.</small>
+      </div>
+      <br>
+      <div class="form-tag mb-3">
+        <div>Kamertype: <span>{{ previous_data['room_name'] }}</span></div> <br>
+        <div>Kamernummer: <span>{{ previous_data['room_number'] }}</span></div> <br>
+        <div>Startdatum:  <span>{{ previous_data['date_start'] }}</span></div> <br>
+        <div>Einddatum:  <span>{{ previous_data['date_end'] }}</span></div> <br>
+        <div>Notes: <br><br>
+            <textarea disabled>{{ previous_data['notes'] }}</textarea>
+        </div>
+      </div>
+    </form>
   </div>
 </div>
-
 {% endblock %}
 

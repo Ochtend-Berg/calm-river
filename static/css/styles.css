@@ -23,6 +23,10 @@ header > img {
   width: 100%;
 }
 
+small {
+  text-align: left; !important;
+}
+
 .form-tag {
   width: 45%;
   margin-right: auto;

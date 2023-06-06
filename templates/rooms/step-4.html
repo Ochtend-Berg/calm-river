@@ -4,7 +4,32 @@
 
 <div class="row mt-4 mb-4">
   <div class="col">
+    <div class="form-tag mb-3">
+        <div class="breadcrumb flat" style="text-align: center">
+            <a href="/rooms/step-1/{{ reservation_data['room_type'] }}">Stap 1</a>
+            <a href="/rooms/step-2/{{ reservation_data['room_type'] }}">Stap 2</a>
+            <a href="/rooms/step-3/{{ reservation_data['room_type'] }}">Stap 3</a>
+            <a href="/rooms/step-4/{{ reservation_data['room_type'] }}" class="active">Reservering</a>
+        </div>
 
+        <h1>Bedankt voor uw reservering</h1>
+        <div>Hieronder staan uw gegevens met uw ordernummer</div>
+        <div>Als u vragen heeft, kunt u <a href="/contact">contact</a> met ons opnemen</div>
+        <br><hr><br>
+        <div>Ordernummer: <span>{{ reservation_data['order_number'] }}</span></div> <br>
+        <div>Voornaam: <span>{{ reservation_data['first_name'] }}</span></div> <br>
+        <div>Achternaam: <span>{{ reservation_data['last_name'] }}</span></div> <br>
+        <div>E-mail: <span>{{ reservation_data['email'] }}</span></div> <br>
+        <div>Kamertype: <span>{{ reservation_data['room_name'] }}</span></div> <br>
+        <div>Kamernummer: <span>{{ reservation_data['room_number'] }}</span></div> <br>
+        <div>Startdatum:  <span>{{ reservation_data['date_start'] }}</span></div> <br>
+        <div>Einddatum:    <span>{{ reservation_data['date_end'] }}</span></div> <br>
+        <div style="margin-bottom: 20px">Notities: <br><br> <textarea disabled>{{ reservation_data['notes'] }}</textarea></div>
+     </div>
+
+     <div class="text-center">
+        <button type="submit" class="btn btn-warning btn-lg me-3 text-white">Teruggaan</button>
+     </div>
   </div>
 </div>
 
