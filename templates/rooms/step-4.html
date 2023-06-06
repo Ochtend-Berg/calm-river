@@ -2,9 +2,10 @@
 
 {% block content %}
 
-<div class="row mt-4 mb-4">
-  <div class="col">
+<div class="container mt-4 mb-4">
+  <div class="row">
     <div class="form-tag mb-3">
+        {% include 'components/flash-message.html' %}
         <div class="breadcrumb flat" style="text-align: center">
             <a href="/rooms/step-1/{{ reservation_data['room_type'] }}">Stap 1</a>
             <a href="/rooms/step-2/{{ reservation_data['room_type'] }}">Stap 2</a>

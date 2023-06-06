@@ -2,11 +2,12 @@
 
 {% block content %}
 
-<div class="row mt-4 mb-4">
-  <div class="col">
+<div class="container mt-4 mb-4">
+  <div class="row">
     <form method="post">
       <input type="hidden" id="room_name" name="room_name" value="{{ get_room_type.name }}">
       <div class="form-tag mb-3">
+        {% include 'components/flash-message.html' %}
         <div class="breadcrumb flat" style="text-align: center">
             <a href="/rooms/step-1/{{ get_room_type.slug }}" class="active">Stap 1</a>
             <a href="/rooms/step-2/{{ get_room_type.slug }}">Stap 2</a>

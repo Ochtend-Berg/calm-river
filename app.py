@@ -18,6 +18,8 @@ from pprint import pprint
 @app.route('/')
 def home():
     active_page = 'home'
+    session["url"] = active_page
+
     return render_template('index.html', active_page=active_page)
 
 
@@ -26,6 +28,7 @@ def home():
 @app.route('/rooms')
 def rooms():
     active_page = 'rooms'
+    session["url"] = active_page
     room_types = Room_type.query.all()
     return render_template('rooms/rooms.html', room_types=room_types, active_page=active_page)
 
@@ -44,6 +47,8 @@ def rooms_step1(slug):
 
     else:
         active_page = 'rooms'
+        session["url"] = 'rooms_step1'
+
         previous_data = session.get('form_data', '')
         get_room_type = Room_type.query.filter_by(slug=slug).first()
         if get_room_type is None:
@@ -57,8 +62,12 @@ def rooms_step1(slug):
 @app.route('/rooms/step-2/<slug>', methods=['GET', 'POST'])
 def rooms_step2(slug):
     if 'form_data' not in session:
-        flash('Er is iets misgegaan. Probeer het opnieuw!', 'danger')
-        return redirect(url_for('rooms'), code=302)  # Ga terug naar stap 1 als stap 1 niet is voltooid
+        url = session.get('url', 'rooms')
+        if url == 'rooms':
+            return redirect(url_for(url), code=302)
+        else:
+            flash('Vul eerst de gegevens van de huidge stap in!', 'danger')
+            return redirect(url_for(url, slug=slug), code=302)
 
     if request.method == 'POST':
         form_data = {}
@@ -72,6 +81,7 @@ def rooms_step2(slug):
 
     else:
         active_page = 'rooms'
+        session["url"] = 'rooms_step2'
 
         # PREVIOUS DATA OF STEP 1
         previous_data = session.get('form_data', '')
@@ -79,6 +89,7 @@ def rooms_step2(slug):
         # PREVIOUS DATA OF STEP 2
         previous_data_2 = session.get('form_data_1', '')
         get_room_type = Room_type.query.filter_by(slug=slug).first()
+
         if get_room_type is None:
             return redirect(url_for('rooms'), code=302)
         else:
@@ -89,8 +100,12 @@ def rooms_step2(slug):
 @app.route('/rooms/step-3/<slug>', methods=['GET', 'POST'])
 def rooms_step3(slug):
     if 'form_data_1' not in session:
-        flash('Er is iets misgegaan. Probeer het opnieuw!', 'danger')
-        return redirect(url_for('rooms'), code=302)  # Ga terug naar stap 1 als stap 1 niet is voltooid
+        url = session.get('url', 'rooms')
+        if url == 'rooms':
+            return redirect(url_for(url), code=302)
+        else:
+            flash('Vul eerst de gegevens van de huidge stap in!', 'danger')
+            return redirect(url_for(url, slug=slug), code=302)
 
     if request.method == 'POST':
         room_number = request.form['room_number']
@@ -131,7 +146,10 @@ def rooms_step3(slug):
 
     else:
         active_page = 'rooms'
+        session["url"] = 'rooms_step3'
+
         get_room_type = Room_type.query.filter_by(slug=slug).first()
+
         if get_room_type is None:
             return redirect(url_for('rooms'), code=302)
         else:
@@ -143,13 +161,19 @@ def rooms_step3(slug):
 @app.route('/rooms/step-4/<slug>')
 def rooms_step4(slug):
     if 'form_data_3' not in session:
-        flash('Er is iets misgegaan. Probeer het opnieuw!', 'danger')
-        session.clear()
-        return redirect(url_for('rooms'), code=302)  # Ga terug naar stap 1 als stap 1 niet is voltooid
+        url = session.get('url', 'rooms')
+        if url == 'rooms':
+            return redirect(url_for(url), code=302)
+        else:
+            flash('Vul eerst de gegevens van de huidge stap in!', 'danger')
+            return redirect(url_for(url, slug=slug), code=302)
+
+    active_page = 'rooms'
+    session["url"] = slug
 
     reservation_data = session.get("form_data_3")
-    active_page = 'rooms'
     get_room_type = Room_type.query.filter_by(slug=slug).first()
+
     if get_room_type is None:
         return redirect(url_for('rooms'), code=302)
 
@@ -162,6 +186,7 @@ def rooms_step4(slug):
 @app.route('/reviews', methods=['GET', 'POST'])
 def reviews():
     active_page = 'reviews'
+    session["url"] = active_page
     reviews = Review.query.order_by(Review.created_at.desc()).limit(10).all()
     form = ReviewForm()
 
@@ -191,16 +216,25 @@ def reviews():
 
 @app.route('/privacy')
 def privacy():
+    active_page = 'privacy'
+    session["url"] = active_page
+
     return render_template('privacy.html')
 
 
 @app.route('/disclaimer')
 def disclaimer():
+    active_page = 'disclaimer'
+    session["url"] = active_page
+
     return render_template('disclaimer.html')
 
 
 @app.route('/contact')
 def contact():
+    active_page = 'contact'
+    session["url"] = active_page
+
     active_page = 'contact'
     return render_template('contact.html', active_page=active_page)
 
