@@ -23,31 +23,31 @@
       <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link text-white {% if active_page == 'home' %}bg-success{% endif %}" href="{{ url_for('home') }}">Home</a>
+            <a class="nav-link text-white {% if active_page == 'home' %}bg-success{% endif %}" href="{{ url_for('basic_bp.home') }}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white {% if active_page == 'rooms' %}bg-success{% endif %}" href="{{ url_for('rooms') }}">Kamers</a>
+            <a class="nav-link text-white {% if active_page == 'rooms' %}bg-success{% endif %}" href="{{ url_for('rooms_bp.index') }}">Kamers</a>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link text-white {% if active_page == 'contact' %}bg-success{% endif %}" href="{{ url_for('contact') }}">Contact en ligging</a>
+            <a class="nav-link text-white {% if active_page == 'contact' %}bg-success{% endif %}" href="{{ url_for('basic_bp.contact') }}">Contact en ligging</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white {% if active_page == 'reviews' %}bg-success{% endif %}" href="{{ url_for('reviews') }}">Gastenboek</a>
+            <a class="nav-link text-white {% if active_page == 'reviews' %}bg-success{% endif %}" href="{{ url_for('reviews_bp.reviews') }}">Gastenboek</a>
           </li>
           <li class="nav-item dropdown {% if active_page == 'my_calm_river' %}bg-success{% endif %}">
             <a class="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown">Mijn Calm River</a>
             <ul class="dropdown-menu">
             {% if current_user.is_authenticated %}
 {#            <li><a class="dropdown-item {% if active_page == 'bookings_index' %}bg-success{% endif %}" href="{{ url_for('bookings_index') }}">Beheer</a></li>#}
-              <li><a class="dropdown-item" href="{{ url_for('my_bookings') }}">Boekingen</a></li>
-              <li><a class="dropdown-item" href="{{ url_for('my_profile') }}">Profiel</a></li>
-              <li><a class="dropdown-item" href="{{ url_for('logout') }}">Uitloggen</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('profile_bp.my_bookings') }}">Boekingen</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('profile_bp.my_profile') }}">Profiel</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('auth_bp.logout') }}">Uitloggen</a></li>
               <form id="form-logout" action="logout" method="POST" style="display: none;"></form>
             {% else %}
-              <li><a class="dropdown-item" href="{{ url_for('login') }}">Inloggen</a></li>
-              <li><a class="dropdown-item" href="{{ url_for('register') }}">Registreren</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('auth_bp.login') }}">Inloggen</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('auth_bp.register') }}">Registreren</a></li>
             {% endif %}
             </ul>
           </li>
@@ -65,9 +65,9 @@
   </main>
   <footer class="p-4 text-center text-white">
     <p>©2023 Calm River Hotels Company</p>
-    <span><a href="{{ url_for('privacy') }}">Privacy</a></span>
-    <span><a href="{{ url_for('disclaimer') }}">Disclaimer</a></span>
-    <span><a href="{{ url_for('contact') }}">Contact</a></span>
+    <span><a href="{{ url_for('basic_bp.privacy') }}">Privacy</a></span>
+    <span><a href="{{ url_for('basic_bp.disclaimer') }}">Disclaimer</a></span>
+    <span><a href="{{ url_for('basic_bp.contact') }}">Contact</a></span>
   </footer>
 </body>
 </html>

@@ -7,7 +7,7 @@ from imports import *
 # ------------------------------------------------------------------------------------------------------------------------------------------ #
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()],
+    email = StringField('Email', validators=[DataRequired(), Email(message='Ongeldig e-mailadres ingevoerd!')],
                         render_kw={"placeholder": "name@example.com", "class": "form-control"})
     password = PasswordField('Wachtwoord', validators=[DataRequired()],
                              render_kw={"placeholder": "*******", "class": "form-control"})
@@ -15,7 +15,7 @@ class LoginForm(FlaskForm):
 
 
 class RegistrationForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()],
+    email = StringField('Email', validators=[DataRequired(), Email(message='Ongeldig e-mailadres ingevoerd!')],
                         render_kw={"placeholder": "name@example.com", "class": "form-control"})
     username = StringField('Usernaam', validators=[DataRequired()],
                            render_kw={"placeholder": "Gebruiker", "class": "form-control"})
