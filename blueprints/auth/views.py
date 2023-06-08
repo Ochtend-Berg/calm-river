@@ -4,7 +4,6 @@ from flask_login import current_user
 from models.User import User
 from blueprints.auth.forms import LoginForm
 from blueprints.auth.forms import RegistrationForm
-
 from forms import LoginForm, RegistrationForm, ReviewForm
 
 # -- BLUEPRINT('NAME OF BLUEPRINT, NAME OF APPLICATION, FOLDER CONTAINING LOGIC) -- #

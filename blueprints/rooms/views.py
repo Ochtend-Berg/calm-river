@@ -9,7 +9,6 @@ from models.Booking import Booking
 from models.Bookings_customer import Bookings_customer
 from models.Customer import Customer
 from flask import session
-from pprint import pprint
 import random
 
 # -- BLUEPRINT('NAME OF BLUEPRINT, NAME OF APPLICATION, FOLDER CONTAINING LOGIC) -- #
