@@ -1,4 +1,4 @@
-from main import app, db
+from app import app, db
 from imports import *
 from models.Review import Review
 from flask import session

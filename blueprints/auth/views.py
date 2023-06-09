@@ -1,4 +1,4 @@
-from main import db
+from app import db
 from imports import *
 from flask_login import current_user
 from models.User import User
@@ -24,7 +24,7 @@ def login():
 
         if user is None:
             flash('Gebruiker bestaat niet.', 'danger')
-            return redirect(url_for('login'), code=302)
+            return redirect(url_for('auth_bp.login'), code=302)
 
         if user.check_password(form.password.data) and user is not None:
             login_user(user)
@@ -68,7 +68,7 @@ def register():
 
         flash('Dank voor de registratie. Er kan nu ingelogd worden!', 'success')
 
-        return redirect(url_for('login'))
+        return redirect(url_for('auth_bp.login'))
 
     return render_template('register.html', form=form, active_page=active_page)
 

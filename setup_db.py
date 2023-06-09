@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------------------------------------------------------------------ #
-from main import app, db
+from app import app, db
 from imports import *
 
 with app.app_context():

@@ -1,5 +1,5 @@
 
-from main import app, db
+from app import app, db
 from imports import *
 from flask import session
 import random
