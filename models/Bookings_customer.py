@@ -17,6 +17,7 @@ class Bookings_customer(db.Model):
     updated_at = db.Column(db.DateTime, nullable=True, unique=False, index=False, default=datetime.utcnow)
 
     booking = db.relationship('Booking', backref='bookings_customers')
+    customer = db.relationship('Customer', backref='bookings_customers')
 
     def __init__(self, booking_id, user_id, customer_id):
         self.booking_id = booking_id

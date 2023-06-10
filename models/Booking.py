@@ -19,6 +19,8 @@ class Booking(db.Model):
     created_at = db.Column(db.DateTime, nullable=True, unique=False, index=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=True, unique=False, index=False, default=datetime.utcnow)
 
+    room = db.relationship('Room', backref='bookings')
+
     def __init__(self, room_id, start, end, is_reservation, is_paid, notes, order_number):
         self.room_id = room_id
         self.start = start

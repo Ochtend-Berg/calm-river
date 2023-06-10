@@ -17,6 +17,8 @@ class Room(db.Model):
     created_at = db.Column(db.DateTime, nullable=True, unique=False, index=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=True, unique=False, index=False, default=datetime.utcnow)
 
+    room_type = db.relationship('Room_type', backref='rooms')
+
     # -- CONSTRUCTOR -- #
     def __init__(self, number, room_type_id):
         self.number = number

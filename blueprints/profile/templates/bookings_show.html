@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    body {
+      position: relative;
+    }
+    body::after {
+      content: "";
+      background-image: url({{ url_for('static', filename='img/singleking-desktop.jpg') }});
+      opacity: 1;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      position: absolute;
+      z-index: -1;
+    }
+</style>
+
+<div class="container mt-4 mb-4">
+  <div class="row d-flex justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      {% include 'components/flash-message.html' %}
+      <div class="card bg-white">
+        {% for result in results %}
+        <div class="card-body p-5">
+          <h1>Ordernummer: <small>{{ result[0].booking.order_number  }}</small> </h1> <br>
+          <h3>Status: <small>{{ 'Lopend' if result[0].booking.end > today else 'Verlopen' }}</small></h3>
+
+          <br><hr><br>
+          <div>Voornaam: <span>{{ result[0].customer.first_name }}</span></div> <br>
+          <div>Achternaam: <span>{{ result[0].customer.last_name }}</span></div> <br>
+          <div>E-mailadres:  <span></span>{{ result[0].customer.email }}</div> <br>
+          <div>Room Type: <span>{{ result[0].booking.room.room_type.name }}</span></div> <br>
+          <div>Kamernummer: <span>{{ result[0].booking.room.number }}</span></div> <br>
+          <div>Startdatum:  <span></span>{{ result[0].booking.start }}</div> <br>
+          <div>Einddatum:    <span>{{ result[0].booking.end }}</span></div> <br>
+          <div>Is Reservering:    <span>{{ 'Ja' if result[0].booking.is_reservation == 1 else 'Nee' }}</span></div> <br>
+          <div>Betaald:    <span>{{ 'Ja' if result[0].booking.is_paid == 1 else 'Nee' }}</span></div> <br>
+          <div style="margin-bottom: 20px">Notities: <br><br> <textarea disabled>{{ result[0].booking.notes }}</textarea></div>
+          <td><a class="btn btn-primary" href="/my-profile/bookings/show/{{ result[0].booking.order_number }}">Ga Terug</a></td>
+          <td><a class="btn btn-danger" href="/my-profile/bookings/show/{{ result[0].booking.order_number }}" data-bs-toggle="modal" data-bs-target="#cancel">Annuleren</a></td>
+
+          <!-- The Modal -->
+          <div class="modal fade" id="cancel">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Annuleren</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <p>Indien u de boeking wilt annuleren, <br>
+                        neem dan contact met ons op.</p>
+
+                    <p>Tel: 06-12345678</p>
+
+                    <p>Houdt er rekening mee dat boekingen die lopend of verlopen zijn niet geannuleerd kunnen worden.</p>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</form>
+</div>
+
+{% endblock %}
