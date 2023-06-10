@@ -23,6 +23,17 @@ profile_bp = Blueprint('profile_bp', __name__, template_folder='templates')
 @profile_bp.route('/my-profile/index')
 @login_required
 def my_profile():
+    active_page = 'my_calm_river'
+    # if request.method == 'POST':
+    #     if 'form1_submit' in request.form:
+    #         # Logica voor het verwerken van formulier 1
+    #         # ...
+    #         return 'Formulier 1 is ingediend!'
+    #     elif 'form2_submit' in request.form:
+    #         # Logica voor het verwerken van formulier 2
+    #         # ...
+    #         return 'Formulier 2 is ingediend!'
+
     count_bookings = Bookings_customer.query.filter_by(user_id=current_user.id).count()
     count_current = 0
     count_expired = 0
@@ -57,6 +68,7 @@ def my_profile():
             count_expired = count_expired + 1
 
     return render_template('profile_index.html', current_user=current_user,
+                           active_page=active_page,
                            count_bookings=count_bookings,
                            count_current=count_current,
                            count_expired=count_expired,

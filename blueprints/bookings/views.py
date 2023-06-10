@@ -22,6 +22,7 @@ bookings_bp = Blueprint('bookings_bp', __name__, template_folder='templates')
 @bookings_bp.route('/my-profile/bookings', methods=['GET', 'POST'])
 @login_required
 def my_bookings():
+    active_page = 'my_calm_river'
     today = date.today().strftime("%Y-%m-%d")
 
     ROWS_PER_PAGE = 5
@@ -66,11 +67,12 @@ def my_bookings():
     # Haal de gewenste gegevens op uit de database
     results = query.paginate(page=page, per_page=ROWS_PER_PAGE)
 
-    return render_template('bookings_index.html', results=results, today=today)
+    return render_template('bookings_index.html', results=results, active_page=active_page, today=today)
 
 @bookings_bp.route('/my-profile/bookings/show/<slug>', methods=['GET', 'POST'])
 @login_required
 def my_bookings_show(slug):
+    active_page = 'my_calm_river'
     today = date.today().strftime("%Y-%m-%d")
 
     ROWS_PER_PAGE = 5
@@ -91,4 +93,4 @@ def my_bookings_show(slug):
     # Haal de gewenste gegevens op uit de database
     results = query.paginate(page=page, per_page=ROWS_PER_PAGE)
 
-    return render_template('bookings_show.html', results=results, today=today)
+    return render_template('bookings_show.html', active_page=active_page, results=results, today=today)
