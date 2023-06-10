@@ -23,24 +23,30 @@
     {% include 'components/flash-message.html' %}
 
     <form id="filter-form" method="post">
+    <div class="row">
+      <div class="col-md-3">
         <div class="input-group mb-3">
-            <div class="form-outline">
-                <input type="search" id="ordernumber" name="ordernumber" class="form-control" placeholder="ordernummer" />
-            </div>
-            <button type="submit" class="btn btn-primary">
-                <i class="fas fa-search"></i>
-            </button>
+          <div class="form-outline">
+            <input type="search" id="ordernumber" name="ordernumber" class="form-control" placeholder="Ordernummer" />
+          </div>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-search"></i>
+          </button>
         </div>
+      </div>
+      <div class="col-md-9">
         <div class="mb-3">
-            <input type="hidden" id="filter-selected" name="filter-selected" value="0">
-            <select class="form-select d-inline" id="filter" name="filter" style="width: 200px;" onchange="updateFilter(this.value)">
-                <option value="">Selecteer een optie</option>
-                <option value="new">Nieuwste eerst</option>
-                <option value="old">Oudste eerst</option>
-                <option value="current">Lopend</option>
-                <option value="expired">Verlopen</option>
-            </select>
+          <input type="hidden" id="filter-selected" name="filter-selected" value="0">
+          <select class="form-select d-inline" id="filter" name="filter" style="width: 200px;" onchange="updateFilter(this.value)">
+            <option value="">Sorteren op:</option>
+            <option value="new">Nieuwste eerst</option>
+            <option value="old">Oudste eerst</option>
+            <option value="current">Lopend</option>
+            <option value="expired">Verlopen</option>
+          </select>
         </div>
+      </div>
+    </div>
     </form>
 
     <script>
@@ -51,7 +57,7 @@
         }
     </script>
 
-    <table class="table table-bordered table-striped" style="background-color: white">
+    <table class="table table-striped" style="background-color: white; border-radius: 15px">
       <thead>
         <tr>
           <th>Ordernummer</th>
@@ -79,7 +85,7 @@
     </table>
     <!-- Pagination Links-->
     <div class="text-right">
-        <a href="{{ url_for('profile_bp.my_bookings', page=results.prev_num) }}"
+        <a href="{{ url_for('bookings_bp.my_bookings', page=results.prev_num) }}"
            class="btn btn-dark
            {% if results.page == 1 %}disabled{% endif %}">
             &laquo;
@@ -89,12 +95,12 @@
     {% if page_num %}
     <!-- Check for the active page and set the link to "Active"-->
                 {% if results.page == page_num %}
-                <a href="{{ url_for('profile_bp.my_bookings', page=page_num) }}"
+                <a href="{{ url_for('bookings_bp.my_bookings', page=page_num) }}"
                    class="btn btn-primary">
                     {{ page_num }}
                 </a>
                 {% else %}
-                <a href="{{ url_for('profile_bp.my_bookings', page=page_num) }}"
+                <a href="{{ url_for('bookings_bp.my_bookings', page=page_num) }}"
                    class="btn btn-outline-primary">
                     {{ page_num }}
                 </a>
@@ -103,7 +109,7 @@
                 ...
             {% endif %}
         {% endfor %}
-        <a href="{{ url_for('profile_bp.my_bookings', page=results.next_num) }}"
+        <a href="{{ url_for('bookings_bp.my_bookings', page=results.next_num) }}"
            class="btn btn-dark
            {% if results.page == results.pages %}disabled{% endif %}">
             &raquo;

@@ -29,7 +29,7 @@
           <h1>Ordernummer: <small>{{ result[0].booking.order_number  }}</small> </h1> <br>
           <h3>Status: <small>{{ 'Lopend' if result[0].booking.end > today else 'Verlopen' }}</small></h3>
 
-          <br><hr><br>
+          <hr><br>
           <div>Voornaam: <span>{{ result[0].customer.first_name }}</span></div> <br>
           <div>Achternaam: <span>{{ result[0].customer.last_name }}</span></div> <br>
           <div>E-mailadres:  <span></span>{{ result[0].customer.email }}</div> <br>
@@ -40,7 +40,7 @@
           <div>Is Reservering:    <span>{{ 'Ja' if result[0].booking.is_reservation == 1 else 'Nee' }}</span></div> <br>
           <div>Betaald:    <span>{{ 'Ja' if result[0].booking.is_paid == 1 else 'Nee' }}</span></div> <br>
           <div style="margin-bottom: 20px">Notities: <br><br> <textarea disabled>{{ result[0].booking.notes }}</textarea></div>
-          <td><a class="btn btn-primary" href="/my-profile/bookings/show/{{ result[0].booking.order_number }}">Ga Terug</a></td>
+          <td><a class="btn btn-primary" href="/my-profile/bookings">Ga Terug</a></td>
           <td><a class="btn btn-danger" href="/my-profile/bookings/show/{{ result[0].booking.order_number }}" data-bs-toggle="modal" data-bs-target="#cancel">Annuleren</a></td>
 
           <!-- The Modal -->
@@ -61,7 +61,7 @@
 
                     <p>Tel: 06-12345678</p>
 
-                    <p>Houdt er rekening mee dat boekingen die lopend of verlopen zijn niet geannuleerd kunnen worden.</p>
+                    <p>Houdt er rekening mee dat boekingen waarvan de startdatum al verlopen zijn niet geannuleerd kunnen worden.</p>
                 </div>
 
                 <!-- Modal footer -->

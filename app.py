@@ -41,7 +41,7 @@ login_manager.login_message_category = 'warning'
 # -- IMPORT BLUEPRINTS -- #
 from blueprints.auth.views import auth_bp
 from blueprints.basic.views import basic_bp
-# from blueprints.bookings.views import bookings_bp
+from blueprints.bookings.views import bookings_bp
 from blueprints.profile.views import profile_bp
 from blueprints.reviews.views import reviews_bp
 from blueprints.rooms.views import rooms_bp
@@ -50,7 +50,7 @@ from blueprints.rooms.views import rooms_bp
 # -- REGISTER BLUEPRINTS -- #
 app.register_blueprint(auth_bp)
 app.register_blueprint(basic_bp)
-# app.register_blueprint(bookings_bp)
+app.register_blueprint(bookings_bp)
 app.register_blueprint(profile_bp)
 app.register_blueprint(reviews_bp)
 app.register_blueprint(rooms_bp, url_prefix="/rooms")
