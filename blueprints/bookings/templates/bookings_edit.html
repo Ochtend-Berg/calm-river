@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    body {
+      position: relative;
+    }
+    body::after {
+      content: "";
+      background-image: url({{ url_for('static', filename='img/singleking-desktop.jpg') }});
+      opacity: 1;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      position: absolute;
+      z-index: -1;
+    }
+</style>
+
+<div class="container mt-4 mb-4">
+  <div class="row d-flex justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      {% include 'components/flash-message.html' %}
+      <div class="card bg-white">
+        {% for result in results %}
+        <div class="card-body p-5">
+          <h1>Ordernummer: <small>{{ result[0].booking.order_number  }}</small> </h1> <br>
+          <h3>Status: <small>{{ 'Lopend' if result[0].booking.end > today else 'Verlopen' }}</small></h3>
+
+          <hr><br>
+          <form method="post" action="/my-profile/bookings/update/{{ result[0].booking.order_number }}">
+              <input type="hidden" id="order_number" name="order_number" value="{{ result[0].booking.order_number }}">
+              <input type="hidden" id="customer_id" name="customer_id" value="{{ result[0].customer.id }}">
+              <div class="mb-3">
+                <div class="input-group">
+                  <span class="input-group-text"></span>
+                    <label>
+                        <input required type="text" class="form-control-lg" placeholder="Voornaam" id="first_name" name="first_name" value="{{ result[0].customer.first_name }}">
+                    </label>
+                </div>
+                <small class="form-text ms-3 text-muted">Voornaam.</small>
+              </div>
+
+              <div class="mb-3">
+                <div class="input-group">
+                  <span class="input-group-text"></span>
+                    <label>
+                        <input required type="text" class="form-control-lg" placeholder="Achternaam" id="last_name" name="last_name" value="{{ result[0].customer.last_name }}">
+                    </label>
+                </div>
+                <small class="form-text ms-3 text-muted">Achternaam.</small>
+              </div>
+
+              <div class="mb-3">
+                <div class="input-group">
+                  <span class="input-group-text"></span>
+                    <label>
+                        <input required type="text" class="form-control-lg" placeholder="Email" id="email" name="email" value="{{ result[0].customer.email }}">
+                    </label>
+                </div>
+                <small class="form-text ms-3 text-muted">Email.</small>
+              </div>
+
+              <div class="mb-3">
+                <select class="form-select form-select-lg" id="room_id" name="room_id" required>
+                  {% for room in rooms %}
+                    <option value="{{ room[0].id }}"
+                            {% if result[0].booking.room.id|string == room[0].id|string %}selected{% endif %}
+                    >
+                        {{ room[0].room_type.name }} - {{ room[0].number }}</option>
+                  {% endfor %}
+                </select>
+                <small class="form-text ms-3 text-muted">Kamer Type - Kamernummer.</small>
+              </div>
+
+              <div class="mb-3">
+                <div class="input-group">
+                  <span class="input-group-text"></span>
+                    <label>
+                        <input required type="date" class="form-control-lg" placeholder="Startdatum:" id="date_start" name="date_start" value="{{ result[0].booking.start }}">
+                    </label>
+                </div>
+                <small class="form-text ms-3 text-muted">Startdatum.</small>
+              </div>
+
+              <div class="mb-3">
+                <div class="input-group">
+                  <span class="input-group-text"></span>
+                    <label>
+                        <input required type="date" class="form-control-lg" placeholder="Einddatum:" id="date_end" name="date_end" value="{{ result[0].booking.end }}">
+                    </label>
+                </div>
+                <small class="form-text ms-3 text-muted">Einddatum.</small>
+              </div>
+
+              <div class="mb-3">
+                <div class="input-group">
+                  <span class="input-group-text"></span>
+                    <label>
+                        <textarea class="form-control-lg" id="notes" name="notes">{{ result[0].booking.notes }}</textarea>
+                    </label>
+                </div>
+                <small class="form-text ms-3 text-muted">Notities:</small>
+              </div>
+
+              <td><button type="submit" class="btn btn-primary">Bijwerken</button></td>
+              <td><a class="btn btn-danger" href="/my-profile/bookings">Ga Terug</a></td>
+         </form>
+          </div>
+        </div>
+        {% endfor %}
+    </div>
+  </div>
+</div>
+</div>
+</form>
+</div>
+
+{% endblock %}

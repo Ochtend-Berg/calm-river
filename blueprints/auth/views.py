@@ -3,8 +3,7 @@ from imports import *
 from flask_login import current_user
 from models.User import User
 from blueprints.auth.forms import LoginForm
-from blueprints.auth.forms import RegistrationForm
-from forms import LoginForm, RegistrationForm, ReviewForm
+from blueprints.auth.forms import RegistrationForm, ForgotForm
 
 # -- BLUEPRINT('NAME OF BLUEPRINT, NAME OF APPLICATION, FOLDER CONTAINING LOGIC) -- #
 auth_bp = Blueprint('auth_bp', __name__, template_folder='templates')
@@ -80,6 +79,17 @@ def logout():
     flash('Je bent nu uitgelogd!', 'danger')
     return redirect(url_for('auth_bp.login'))
 
+@auth_bp.route('/forgot-password', methods=['GET', 'POST'])
+def forgot_password():
+    active_page = 'my_calm_river'
+    form = ForgotForm()
 
-if __name__ == '__main__':
-    app.run(debug=True)
+    return render_template('forgot_password.html', form=form, active_page=active_page)
+
+@auth_bp.route('/reset-password', methods=['GET', 'POST'])
+def reset_password():
+    active_page = 'my_calm_river'
+    form = ForgotForm()
+
+    return render_template('reset_password.html', form=form, active_page=active_page)
+

@@ -30,51 +30,102 @@
           <h3>Status: <small>{{ 'Lopend' if result[0].booking.end > today else 'Verlopen' }}</small></h3>
 
           <hr><br>
-          <div>Voornaam: <span>{{ result[0].customer.first_name }}</span></div> <br>
-          <div>Achternaam: <span>{{ result[0].customer.last_name }}</span></div> <br>
-          <div>E-mailadres:  <span></span>{{ result[0].customer.email }}</div> <br>
-          <div>Room Type: <span>{{ result[0].booking.room.room_type.name }}</span></div> <br>
-          <div>Kamernummer: <span>{{ result[0].booking.room.number }}</span></div> <br>
-          <div>Startdatum:  <span></span>{{ result[0].booking.start }}</div> <br>
-          <div>Einddatum:    <span>{{ result[0].booking.end }}</span></div> <br>
-          <div>Is Reservering:    <span>{{ 'Ja' if result[0].booking.is_reservation == 1 else 'Nee' }}</span></div> <br>
-          <div>Betaald:    <span>{{ 'Ja' if result[0].booking.is_paid == 1 else 'Nee' }}</span></div> <br>
-          <div style="margin-bottom: 20px">Notities: <br><br> <textarea disabled>{{ result[0].booking.notes }}</textarea></div>
-          <td><a class="btn btn-primary" href="/my-profile/bookings">Ga Terug</a></td>
-          <td><a class="btn btn-danger" href="/my-profile/bookings/show/{{ result[0].booking.order_number }}" data-bs-toggle="modal" data-bs-target="#cancel">Annuleren</a></td>
-
-          <!-- The Modal -->
-          <div class="modal fade" id="cancel">
-            <div class="modal-dialog">
-              <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                  <h4 class="modal-title">Annuleren</h4>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              <div class="mb-3">
+                <div class="input-group">
+                  <span class="input-group-text"></span>
+                    <label>
+                        <input required type="text" class="form-control-lg" placeholder="Voornaam" id="first_name" name="first_name" disabled value="{{ result[0].customer.first_name }}">
+                    </label>
                 </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <p>Indien u de boeking wilt annuleren, <br>
-                        neem dan contact met ons op.</p>
-
-                    <p>Tel: 06-12345678</p>
-
-                    <p>Houdt er rekening mee dat boekingen waarvan de startdatum al verlopen zijn niet geannuleerd kunnen worden.</p>
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                </div>
-
+                <small class="form-text ms-3 text-muted">Voornaam.</small>
               </div>
-            </div>
+
+              <div class="mb-3">
+                <div class="input-group">
+                  <span class="input-group-text"></span>
+                    <label>
+                        <input required type="text" class="form-control-lg" placeholder="Achternaam" id="last_name" name="last_name" disabled value="{{ result[0].customer.last_name }}">
+                    </label>
+                </div>
+                <small class="form-text ms-3 text-muted">Achternaam.</small>
+              </div>
+
+              <div class="mb-3">
+                <div class="input-group">
+                  <span class="input-group-text"></span>
+                    <label>
+                        <input required type="text" class="form-control-lg" placeholder="Email" id="email" name="email" disabled value="{{ result[0].customer.email }}">
+                    </label>
+                </div>
+                <small class="form-text ms-3 text-muted">Email.</small>
+              </div>
+
+              <div class="mb-3">
+                <div class="input-group">
+                  <span class="input-group-text"></span>
+                    <label>
+                        <input required type="text" class="form-control-lg" placeholder="Room Type:" id="room_type" name="room_type" disabled value="{{ result[0].booking.room.room_type.name }}">
+                    </label>
+                </div>
+                <small class="form-text ms-3 text-muted">Room Type.</small>
+              </div>
+
+              <div class="mb-3">
+                <div class="input-group">
+                  <span class="input-group-text"></span>
+                    <label>
+                        <input required type="text" class="form-control-lg" placeholder="Kamernummer:" id="room_number" name="room_number" disabled value="{{ result[0].booking.room.number }}">
+                    </label>
+                </div>
+                <small class="form-text ms-3 text-muted">Kamernummer.</small>
+              </div>
+
+              <div class="mb-3">
+                <div class="input-group">
+                  <span class="input-group-text"></span>
+                    <label>
+                        <input required type="text" class="form-control-lg" placeholder="Startdatum:" id="date_start" name="date_start" disabled value="{{ result[0].booking.start }}">
+                    </label>
+                </div>
+                <small class="form-text ms-3 text-muted">Startdatum</small>
+              </div>
+
+              <div class="mb-3">
+                <div class="input-group">
+                  <span class="input-group-text"></span>
+                    <label>
+                        <input required type="text" class="form-control-lg" placeholder="Einddatum:" id="date_end" name="date_end" disabled value="{{ result[0].booking.end }}">
+                    </label>
+                </div>
+                <small class="form-text ms-3 text-muted">Einddatum</small>
+              </div>
+
+              <div class="mb-3">
+                <div class="input-group">
+                  <span class="input-group-text"></span>
+                    <label>
+                        <textarea class="form-control-lg" disabled>{{ result[0].booking.notes }}</textarea>
+                    </label>
+                </div>
+                <small class="form-text ms-3 text-muted">Notities:</small>
+              </div>
+
+          <td><a class="btn btn-primary" href="/my-profile/bookings">Ga Terug</a></td>
+
+          {% if current_user.is_admin == 1 %}
+          <td>
+             <a class="btn btn-danger" href="/my-profile/bookings/delete/{{ result[0].booking.order_number }}" data-bs-toggle="modal" data-bs-target="#delete">Annuleren</a>
+             {% include 'components/delete-modal.html' %}
+          </td>
+          {% endif %}
+
+          {% if current_user.is_admin == 0 %}
+             <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancel">Annuleren</a>
+             {% include 'components/cancel-modal.html' %}
+          {% endif %}
           </div>
         </div>
         {% endfor %}
-      </div>
     </div>
   </div>
 </div>

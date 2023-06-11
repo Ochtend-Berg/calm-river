@@ -1,0 +1,32 @@
+ <!-- The Modal -->
+<div class="modal fade" id="edit-username">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Naam Veranderen</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form method="post" name="username">
+        <!-- Modal body -->
+        <div class="modal-body">
+                <!-- Formulier 2-velden hier -->
+              <div class="mb-3">
+                <label for="username">Gebruikersnaam</label>
+                <input type="text" class="form-control" placeholder="Gebruikersnaam" id="username" name="username" value="" required>
+              </div>
+              <div class="mb-3">
+                <label for="username">Bevestig Wachtwoord</label>
+                <input type="password" class="form-control" placeholder="*******" id="confirm_password" name="confirm_password" value="" required>
+              </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Verzenden</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Sluiten</button>
+        </div>
+        </form>
+      </div>
+    </div>
+</div>

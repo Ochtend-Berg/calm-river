@@ -20,19 +20,39 @@ from pprint import pprint
 profile_bp = Blueprint('profile_bp', __name__, template_folder='templates')
 
 
-@profile_bp.route('/my-profile/index')
+# INDEX AND EDIT ROUTE OF PROFILE
+@profile_bp.route('/my-profile/index', methods=['GET', 'POST'])
 @login_required
-def my_profile():
+def profile_index():
     active_page = 'my_calm_river'
-    # if request.method == 'POST':
-    #     if 'form1_submit' in request.form:
-    #         # Logica voor het verwerken van formulier 1
-    #         # ...
-    #         return 'Formulier 1 is ingediend!'
-    #     elif 'form2_submit' in request.form:
-    #         # Logica voor het verwerken van formulier 2
-    #         # ...
-    #         return 'Formulier 2 is ingediend!'
+    if request.method == 'POST':
+
+        confirm_password = request.form['confirm_password']
+        user = User.query.filter_by(email=current_user.email).first()
+
+        if user.check_password(confirm_password) and user is not None:
+            if 'username' in request.form:
+                username = request.form['username']
+                if username is "":
+                    flash('U moet een gebruikersnaam invoeren!', 'danger')
+                    return redirect(url_for('profile_bp.profile_index'), code=302)
+
+                user.username = username
+            elif 'email' in request.form:
+                email = request.form['email']
+                if email is "":
+                    flash('U moet een e-mailadres invoeren!', 'danger')
+                    return redirect(url_for('profile_bp.profile_index'), code=302)
+                user.email = email
+            try:
+                db.session.commit()
+                flash('Gegevens succesvol bijgewerkt!', 'success')
+            except:
+                flash('Er is iets misgegaan. Probeer het later nog eens!', 'danger')
+                return redirect(url_for('profile_bp.profile_index'), code=302)
+        else:
+            flash('U heeft een foutief wachtwoord ingevoerd!', 'danger')
+            return redirect(url_for('profile_bp.profile_index'), code=302)
 
     count_bookings = Bookings_customer.query.filter_by(user_id=current_user.id).count()
     count_current = 0

@@ -78,14 +78,19 @@
           <td>{{ result[0].booking.start }}</td>
           <td>{{ result[0].booking.end }}</td>
           <td>{{ 'Lopend' if result[0].booking.end > today else 'Verlopen' }}</td>
-          <td><a class="btn btn-primary" href="/my-profile/bookings/show/{{ result[0].booking.order_number }}">View</a></td>
+          <td>
+              <a class="btn btn-primary" href="/my-profile/bookings/show/{{ result[0].booking.order_number }}">View</a>
+              {% if current_user.is_admin == 1 %}
+              <a class="btn btn-success" href="/my-profile/bookings/edit/{{ result[0].booking.order_number }}">Bewerken</a>
+              {% endif %}
+          </td>
         </tr>
        {% endfor %}
       </tbody>
     </table>
     <!-- Pagination Links-->
     <div class="text-right">
-        <a href="{{ url_for('bookings_bp.my_bookings', page=results.prev_num) }}"
+        <a href="{{ url_for('bookings_bp.booking_index', page=results.prev_num) }}"
            class="btn btn-dark
            {% if results.page == 1 %}disabled{% endif %}">
             &laquo;
@@ -95,12 +100,12 @@
     {% if page_num %}
     <!-- Check for the active page and set the link to "Active"-->
                 {% if results.page == page_num %}
-                <a href="{{ url_for('bookings_bp.my_bookings', page=page_num) }}"
+                <a href="{{ url_for('bookings_bp.booking_index', page=page_num) }}"
                    class="btn btn-primary">
                     {{ page_num }}
                 </a>
                 {% else %}
-                <a href="{{ url_for('bookings_bp.my_bookings', page=page_num) }}"
+                <a href="{{ url_for('bookings_bp.booking_index', page=page_num) }}"
                    class="btn btn-outline-primary">
                     {{ page_num }}
                 </a>
@@ -109,7 +114,7 @@
                 ...
             {% endif %}
         {% endfor %}
-        <a href="{{ url_for('bookings_bp.my_bookings', page=results.next_num) }}"
+        <a href="{{ url_for('bookings_bp.booking_index', page=results.next_num) }}"
            class="btn btn-dark
            {% if results.page == results.pages %}disabled{% endif %}">
             &raquo;

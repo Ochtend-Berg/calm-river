@@ -1,0 +1,28 @@
+ <!-- The Modal -->
+<div class="modal fade" id="delete">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Annuleren</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <form method="post" action="/my-profile/bookings/delete/{{ result[0].booking.order_number }}" name="delete">
+            <!-- Modal body -->
+            <div class="modal-body">
+                <p>Weet u zeker dat de boeking wilt annuleren?</p>
+                <input type="hidden" id="booking_customer_id" name="booking_customer_id" value="{{ result[0].id }}">
+                <input type="hidden" id="customer_id" name="customer_id" value="{{ result[0].customer.id }}">
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Bevestigen</button>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Sluiten</button>
+            </div>
+        </form>
+      </div>
+    </div>0
+</div>

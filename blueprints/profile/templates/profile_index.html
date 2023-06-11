@@ -14,7 +14,7 @@
               class="rounded-circle" width="100" height="100">
             <h5 class="my-3">Test</h5>
             <div class="d-flex justify-content-center mb-2">
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-profile">Profiel Bewerken</button>
+              <a type="button" href="/rooms/index" class="btn btn-primary">Kamer Boeken</a>
             </div>
           </div>
         </div>
@@ -26,8 +26,11 @@
               <div class="col-sm-3">
                 <p class="mb-0"><strong>Gebruikersnaam:</strong></p>
               </div>
-              <div class="col-sm-9">
+              <div class="col-sm-4">
                 <p class="text-muted mb-0">{{ current_user.username }}</p>
+              </div>
+              <div class="col-sm-5">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-username">Naam Wijzigen</button>
               </div>
             </div>
             <hr>
@@ -35,8 +38,20 @@
               <div class="col-sm-3">
                 <p class="mb-0"><strong>Email:</strong></p>
               </div>
-              <div class="col-sm-9">
+              <div class="col-sm-4">
                 <p class="text-muted mb-0">{{ current_user.email }}</p>
+              </div>
+              <div class="col-sm-5">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-email">Email Wijzigen</button>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0"><strong>Rol:</strong></p>
+              </div>
+              <div class="col-sm-4">
+                <p class="text-muted mb-0">{{ 'Administrator' if current_user.is_admin == 1 else 'Member' }}</p>
               </div>
             </div>
         </div>
@@ -67,41 +82,11 @@
                 <input required type="text" class="form-control-lg" id="count_bookings" disabled value="{{ room_type.name }} - {{ room.number }}">
             </div>
           </div>
-        </div>
-         <!-- The Modal -->
-          <div class="modal fade" id="edit-profile">
-            <div class="modal-dialog">
-              <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                  <h4 class="modal-title">Profiel Bewerken</h4>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <form method="POST" action="/" name="username">
-                        <!-- Formulier 2-velden hier -->
-                        <h4>Gebruikersnaam Veranderen</h4>
-                      <div class="mb-3">
-                        <label for="username">Gebruikersnaam</label>
-                        <input type="text" class="form-control" placeholder="Gebruikersnaam" id="username" name="username" value="">
-                        <input type="password" class="form-control" placeholder="Gebruikersnaam" id="username" name="username" value="">
-                      </div>
-                    </form>
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+          {% include 'components/username-modal.html' %}
+          {% include 'components/email-modal.html' %}
         </div>
       </div>
+    </div>
     </div>
   </div>
 </section>
