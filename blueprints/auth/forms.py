@@ -41,12 +41,12 @@ class RegistrationForm(FlaskForm):
 class ForgotForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email(message='Ongeldig e-mailadres ingevoerd!')],
                         render_kw={"placeholder": "name@example.com", "class": "form-control"})
-    password = PasswordField('Wachtwoord', validators=[DataRequired(),
-                                                       EqualTo('pass_confirm',
-                                                               message='Wachtwoorden moeten overeenkomen!')],
-                             render_kw={"placeholder": "*******", "class": "form-control"})
-
-    pass_confirm = PasswordField('Bevestig wachtwoord', validators=[DataRequired()],
-                                 render_kw={"placeholder": "*******", "class": "form-control"})
+    # password = PasswordField('Wachtwoord', validators=[DataRequired(),
+    #                                                    EqualTo('pass_confirm',
+    #                                                            message='Wachtwoorden moeten overeenkomen!')],
+    #                          render_kw={"placeholder": "*******", "class": "form-control"})
+    #
+    # pass_confirm = PasswordField('Bevestig wachtwoord', validators=[DataRequired()],
+    #                              render_kw={"placeholder": "*******", "class": "form-control"})
     submit = SubmitField('Verzenden!', render_kw={"class": "btn btn-outline-success"})
 # ------------------------------------------------------------------------------------------------------------------------------------------ #

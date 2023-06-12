@@ -172,7 +172,7 @@ def booking_update(order_number):
             return redirect(url_for('bookings_bp.booking_index'), code=302)
 
         flash('Boekingsgegevens succesvol bijgewerkt!', 'success')
-        return redirect(url_for('bookings_bp.booking_index'))
+        return redirect(url_for('bookings_bp.booking_show', order_number=order_number))
 
     else:
         return redirect(url_for('bookings_bp.booking_index'))

@@ -115,13 +115,13 @@
           {% if current_user.is_admin == 1 %}
           <td>
              <a class="btn btn-danger" href="/my-profile/bookings/delete/{{ result[0].booking.order_number }}" data-bs-toggle="modal" data-bs-target="#delete">Annuleren</a>
-             {% include 'components/delete-modal.html' %}
+             {% include 'components/modals/delete.html' %}
           </td>
           {% endif %}
 
           {% if current_user.is_admin == 0 %}
              <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancel">Annuleren</a>
-             {% include 'components/cancel-modal.html' %}
+             {% include 'components/modals/cancel.html' %}
           {% endif %}
           </div>
         </div>

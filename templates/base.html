@@ -40,7 +40,6 @@
             <a class="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown">Mijn Calm River</a>
             <ul class="dropdown-menu">
             {% if current_user.is_authenticated %}
-{#            <li><a class="dropdown-item {% if active_page == 'bookings_index' %}bg-success{% endif %}" href="{{ url_for('bookings_index') }}">Beheer</a></li>#}
               <li><a class="dropdown-item" href="{{ url_for('bookings_bp.booking_index') }}">Boekingen</a></li>
               <li><a class="dropdown-item" href="{{ url_for('profile_bp.profile_index') }}">Profiel</a></li>
               <li><a class="dropdown-item" href="{{ url_for('auth_bp.logout') }}">Uitloggen</a></li>

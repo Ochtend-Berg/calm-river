@@ -10,6 +10,14 @@ app = Flask(__name__)
 # -- KEY TO INTERACT WITH FORMS -- #
 app.config['SECRET_KEY'] = 'mijngeheimesleutel'
 
+# Flask-mail configuratie
+app.config['MAIL_SERVER'] = 'sandbox.smtp.mailtrap.io'
+app.config['MAIL_PORT'] = 2525
+app.config['MAIL_USERNAME'] = 'ad7dbc80d47d4c'
+app.config['MAIL_PASSWORD'] = '5162580613de17'
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+
 # -- 'C:\Users\Admin\Desktop\flask-sqlite\' -- #
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -46,7 +54,6 @@ from blueprints.profile.views import profile_bp
 from blueprints.reviews.views import reviews_bp
 from blueprints.rooms.views import rooms_bp
 
-
 # -- REGISTER BLUEPRINTS -- #
 app.register_blueprint(auth_bp)
 app.register_blueprint(basic_bp)
@@ -54,10 +61,6 @@ app.register_blueprint(bookings_bp)
 app.register_blueprint(profile_bp)
 app.register_blueprint(reviews_bp)
 app.register_blueprint(rooms_bp, url_prefix="/rooms")
-
-# app.register_blueprint(students_bp, url_prefix="/students")
-# app.register_blueprint(teachers_bp, url_prefix="/teachers")
-
 
 if __name__ == '__main__':
     app.run(debug=True)
