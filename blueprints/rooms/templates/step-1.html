@@ -5,6 +5,7 @@
 <div class="container mt-4 mb-4">
   <div class="row">
     <form method="post">
+      <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
       <input type="hidden" id="room_name" name="room_name" value="{{ get_room_type.name }}">
       <div class="form-tag mb-3">
         {% include 'components/flash-message.html' %}

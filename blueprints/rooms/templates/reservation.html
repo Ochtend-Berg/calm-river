@@ -2,9 +2,16 @@
 
 {% block content %}
 
+<style>
+  th,
+  td {
+    padding: 10px 20px; /* Aanpassen naar gewenste waarden */
+  }
+</style>
+
 <div class="container mt-4 mb-4">
-  <div class="row">
-    <div class="form-tag mb-3">
+  <div class="row justify-content-center">
+    <div class="col-sm-6 col-md-6 col-lg-6">
         {% include 'components/flash-message.html' %}
         <div class="breadcrumb flat" style="text-align: center">
             <a href="/rooms/step-1/{{ reservation_data['room_type'] }}">Stap 1</a>
@@ -12,25 +19,59 @@
             <a href="/rooms/step-3/{{ reservation_data['room_type'] }}">Stap 3</a>
             <a href="/rooms/reservation/{{ reservation_data['room_type'] }}" class="active">Reservering</a>
         </div>
-
-        <h1>Bedankt voor uw reservering</h1>
-        <div>Hieronder staan uw gegevens met uw ordernummer</div>
-        <div>Als u vragen heeft, kunt u <a href="/contact">contact</a> met ons opnemen</div>
-        <br><hr><br>
-        <div>Ordernummer: <span>{{ reservation_data['order_number'] }}</span></div> <br>
-        <div>Voornaam: <span>{{ reservation_data['first_name'] }}</span></div> <br>
-        <div>Achternaam: <span>{{ reservation_data['last_name'] }}</span></div> <br>
-        <div>E-mail: <span>{{ reservation_data['email'] }}</span></div> <br>
-        <div>Kamertype: <span>{{ reservation_data['room_name'] }}</span></div> <br>
-        <div>Kamernummer: <span>{{ reservation_data['room_number'] }}</span></div> <br>
-        <div>Startdatum:  <span>{{ reservation_data['date_start'] }}</span></div> <br>
-        <div>Einddatum:    <span>{{ reservation_data['date_end'] }}</span></div> <br>
-        <div style="margin-bottom: 20px">Notities: <br><br> <textarea disabled>{{ reservation_data['notes'] }}</textarea></div>
-     </div>
-
-     <div class="text-center">
-        <button type="submit" class="btn btn-warning btn-lg me-3 text-white">Teruggaan</button>
-     </div>
+        
+        <div class="card shadow">
+        <div class="card-title text-center border-bottom">
+          <h2 class="p-3">Bedankt voor uw reservering!</h2>
+        </div>
+        <div class="card-body">
+          <div class="mb-4">
+            <table>
+              <tr>
+                <th>Velden</th>
+                <th>Gekozen</th>
+              </tr>
+              <tr>
+                <td>Kamertype</td>
+                <td>{{ reservation_data['room_name'] }}</td>
+              </tr>
+              <tr>
+                <td>Kamernummer</td>
+                <td>{{ reservation_data['room_number'] }}</td>
+              </tr>
+              <tr>
+                <td>Startdatum</td>
+                <td>{{ reservation_data['date_start'] }}</td>
+              </tr>
+              <tr>
+                <td>Einddatum</td>
+                <td>{{ reservation_data['date_end'] }}</td>
+              </tr>
+              <tr>
+                <td>Notities</td>
+                <td>{{ reservation_data['notes'] }}</td>
+              </tr>
+              <tr>
+                <td>Voornaam</td>
+                <td>{{ reservation_data['first_name'] }}</td>
+              </tr>
+              <tr>
+                <td>Achternaam</td>
+                <td>{{ reservation_data['last_name'] }}</td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td>{{ reservation_data['email'] }}</td>
+              </tr>
+            </table>
+          </div>
+            
+          <div class="d-grid">
+            <a class="btn btn-success btn-lg me-3 text-white" href="/rooms/index">Einde</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

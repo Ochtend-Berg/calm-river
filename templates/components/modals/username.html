@@ -8,6 +8,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <form method="post" name="username">
+        <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
         <!-- Modal body -->
         <div class="modal-body">
                 <!-- Formulier 2-velden hier -->

@@ -17,6 +17,7 @@ app.config['MAIL_USERNAME'] = 'ad7dbc80d47d4c'
 app.config['MAIL_PASSWORD'] = '5162580613de17'
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
+app.config['MAIL_DEFAULT_SENDER'] = 'hotelcalmriver@info.com'
 
 # -- 'C:\Users\Admin\Desktop\flask-sqlite\' -- #
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -24,6 +25,8 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 # -- DATABASE SETTINGS TO CREATE A DATABASE INSTANCE -- #
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'database/data.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+csrf = CSRFProtect(app)
 
 # -- CREATE DATABASE INSTANCE -- #
 db = SQLAlchemy(app)

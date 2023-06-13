@@ -7,8 +7,7 @@ from flask_login import current_user
 from flask_mail import Mail, Message
 from models.User import User
 from blueprints.auth.forms import LoginForm
-from blueprints.auth.forms import RegistrationForm, ForgotForm
-from pprint import pprint
+from blueprints.auth.forms import RegistrationForm, ForgotForm, ResetForm
 
 # -- BLUEPRINT('NAME OF BLUEPRINT, NAME OF APPLICATION, FOLDER CONTAINING LOGIC) -- #
 auth_bp = Blueprint('auth_bp', __name__, template_folder='templates')
@@ -66,7 +65,7 @@ def register():
             flash('Het gekozen gebruikersnaam bestaat al!', 'danger')
             return redirect(url_for('auth_bp.register'))
 
-        user = User(email=form.email.data, username=form.username.data, password=form.password.data)
+        user = User(email=form.email.data, username=form.username.data, password=form.password.data, is_admin=0)
         db.session.add(user)
         db.session.commit()
 
@@ -81,30 +80,63 @@ def register():
 @login_required
 def logout():
     logout_user()
-    flash('Je bent nu uitgelogd!', 'danger')
+    flash('Je bent nu uitgelogd!', 'success')
     return redirect(url_for('auth_bp.login'))
 
 
 mail = Mail(app)
+serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+
 
 @auth_bp.route('/forgot-password', methods=['GET', 'POST'])
 def forgot_password():
     form = ForgotForm()
-
     if form.validate_on_submit():
-        # Verzend de test-e-mail
-        msg = Message('Wachtwoordherstel', recipients=[form.email.data])
-        msg.body = 'Dit is een test-e-mail voor wachtwoordherstel.'
-        pprint(mail.send(msg))
+        email = form.email.data
 
-        flash('Een test-e-mail voor wachtwoordherstel is verzonden naar uw adres.')
-        return redirect(url_for('auth_bp.forgot_password'))
+        user = User.query.filter_by(email=form.email.data).first()
+        if user:
+            # Verzend de wachtwoordherstel-e-mail
+            token = serializer.dumps(email, salt='password-reset')
+            reset_url = url_for('auth_bp.reset_password', token=token, _external=True)
+
+            msg = Message('Wachtwoordherstel', recipients=[email])
+            msg.body = f'Klik op de volgende link om uw wachtwoord opnieuw in te stellen: {reset_url}'
+
+            try:
+                mail.send(msg)
+            except Exception as e:
+                flash('Er is een fout opgetreden bij het verzenden van de e-mail. Probeer het later opnieuw.')
+                return redirect(url_for('auth_bp.forgot_password'))
+
+            flash('Een e-mail voor wachtwoordherstel is verzonden naar uw adres.', 'success')
+            return redirect(url_for('auth_bp.forgot_password'))
+        else:
+            flash('Dit e-mailadres is niet geregistreerd.', 'danger')
 
     return render_template('forgot_password.html', form=form)
 
 
-@auth_bp.route('/reset-password', methods=['GET', 'POST'])
-def reset_password():
-    form = ForgotForm()
+@auth_bp.route('/reset-password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    try:
+        email = serializer.loads(token, salt='password-reset', max_age=3600)
+    except:
+        flash('De wachtwoordherstel-link is ongeldig of verlopen.', 'danger')
+        return redirect(url_for('auth_bp.forgot_password'))
+
+    form = ResetForm()
+    if form.validate_on_submit():
+        # Reset het wachtwoord van de gebruiker
+        user = User.query.filter_by(email=email).first()
+        if user:
+            user.set_password(form.password.data)
+            db.session.commit()
+
+            flash('Uw wachtwoord is succesvol gewijzigd.', 'success')
+            return redirect(url_for('auth_bp.login'))
+        else:
+            flash('Er is een fout opgetreden bij het wijzigen van uw wachtwoord. Probeer het later opnieuw.', 'danger')
+            return redirect(url_for('auth_bp.forgot_password'))
 
     return render_template('reset_password.html', form=form)

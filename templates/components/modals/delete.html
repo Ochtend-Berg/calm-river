@@ -13,6 +13,7 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <p>Weet u zeker dat de boeking wilt annuleren?</p>
+                <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
                 <input type="hidden" id="booking_customer_id" name="booking_customer_id" value="{{ result[0].id }}">
                 <input type="hidden" id="customer_id" name="customer_id" value="{{ result[0].customer.id }}">
             </div>

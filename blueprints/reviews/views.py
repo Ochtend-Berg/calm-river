@@ -7,6 +7,7 @@ from forms import ReviewForm
 # -- BLUEPRINT('NAME OF BLUEPRINT, NAME OF APPLICATION, FOLDER CONTAINING LOGIC) -- #
 reviews_bp = Blueprint('reviews_bp', __name__, template_folder='templates')
 
+
 @reviews_bp.route('/reviews', methods=['GET', 'POST'])
 def reviews():
     active_page = 'reviews'
@@ -15,25 +16,20 @@ def reviews():
     form = ReviewForm()
 
     if form.validate_on_submit():
-        name = request.form['name']
-        email = request.form['email']
-        rating_id = request.form['rating_id']
-        comment = request.form['comment']
+        name = form.name.data
+        email = form.email.data
+        rating_id = form.rating_id.data
+        comment = form.comment.data
 
         try:
             review = Review(name=name, email=email, rating_id=rating_id, comment=comment)
-        except:
+            db.session.add(review)
+            db.session.commit()
+            flash('Dank voor uw recensie.', 'success')
+            return redirect(url_for('reviews_bp.reviews'))
+
+        except ValueError:
+            db.session.rollback()
             flash('Er is iets misgegaan. Probeer het opnieuw!', 'danger')
-            return redirect(url_for('reviews_bp.reviews'), code=302)
-
-        db.session.add(review)
-        db.session.commit()
-
-        flash('Dank voor uw recensie.', 'success')
-
-        return redirect(url_for('reviews_bp.reviews'))
 
     return render_template('reviews_index.html', form=form, reviews=reviews, active_page=active_page)
-
-
-

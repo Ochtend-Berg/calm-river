@@ -5,6 +5,7 @@
 <div class="container mt-4 mb-4">
   <div class="row">
     <form method="post">
+      <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
       <input type="hidden" id="room_type" name="room_type" value="{{ previous_data['room_type'] }}">
       <input type="hidden" id="room_name" name="room_name" value="{{ previous_data['room_name'] }}">
       <input type="hidden" id="room_number" name="room_number" value="{{ previous_data['room_number'] }}">

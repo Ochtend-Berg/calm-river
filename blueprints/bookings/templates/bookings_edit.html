@@ -31,6 +31,7 @@
 
           <hr><br>
           <form method="post" action="/my-profile/bookings/update/{{ result[0].booking.order_number }}">
+              <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
               <input type="hidden" id="order_number" name="order_number" value="{{ result[0].booking.order_number }}">
               <input type="hidden" id="customer_id" name="customer_id" value="{{ result[0].customer.id }}">
               <div class="mb-3">
@@ -114,8 +115,4 @@
     </div>
   </div>
 </div>
-</div>
-</form>
-</div>
-
 {% endblock %}

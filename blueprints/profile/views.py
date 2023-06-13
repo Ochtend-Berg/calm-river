@@ -26,66 +26,54 @@ profile_bp = Blueprint('profile_bp', __name__, template_folder='templates')
 def profile_index():
     active_page = 'my_calm_river'
     if request.method == 'POST':
-
         confirm_password = request.form['confirm_password']
         user = User.query.filter_by(email=current_user.email).first()
 
-        if user.check_password(confirm_password) and user is not None:
+        if user is not None and user.check_password(confirm_password):
             if 'username' in request.form:
-                username = request.form['username']
-                if username is "":
+                username = request.form['username'].strip()
+                if not username:
                     flash('U moet een gebruikersnaam invoeren!', 'danger')
-                    return redirect(url_for('profile_bp.profile_index'), code=302)
+                    return redirect(url_for('profile_bp.profile_index'))
 
                 user.username = username
             elif 'email' in request.form:
-                email = request.form['email']
-                if email is "":
+                email = request.form['email'].strip()
+                if not email:
                     flash('U moet een e-mailadres invoeren!', 'danger')
-                    return redirect(url_for('profile_bp.profile_index'), code=302)
+                    return redirect(url_for('profile_bp.profile_index'))
+
                 user.email = email
+
             try:
                 db.session.commit()
                 flash('Gegevens succesvol bijgewerkt!', 'success')
-            except:
+            except Exception as e:
+                db.session.rollback()
                 flash('Er is iets misgegaan. Probeer het later nog eens!', 'danger')
-                return redirect(url_for('profile_bp.profile_index'), code=302)
+                app.logger.error(str(e))
         else:
             flash('U heeft een foutief wachtwoord ingevoerd!', 'danger')
-            return redirect(url_for('profile_bp.profile_index'), code=302)
 
     count_bookings = Bookings_customer.query.filter_by(user_id=current_user.id).count()
-    count_current = 0
-    count_expired = 0
 
-    # Voer een join uit tussen bookings_customer en bookings op basis van de relatie
     query = db.session.query(Bookings_customer, Booking).join(Bookings_customer.booking)
-
-    # Voeg een filter toe op basis van de user_id
     query = query.filter(Bookings_customer.user_id == current_user.id)
-
-    # Haal de gewenste gegevens op uit de database
     results = query.all()
 
-    end_dates = [booking.end for _, booking in results]
-    rooms = [booking.room_id for _, booking in results]
-
-    if not rooms:
+    room_ids = [booking.room_id for _, booking in results]
+    if room_ids:
+        most_common_room_id = max(set(room_ids), key=room_ids.count)
+        room = Room.query.get(most_common_room_id)
+        room_type = Room_type.query.get(room.room_type_id)
+    else:
         most_common_room_id = "-"
         room = "-"
         room_type = "-"
-    else:
-        most_common_room_id = max(set(rooms), key=rooms.count)
-        room = Room.query.filter_by(id=most_common_room_id).first()
-        room_type = Room_type.query.filter_by(id=room.room_type_id).first()
 
     today = date.today().strftime("%Y-%m-%d")
-
-    for end_date in end_dates:
-        if end_date > today:
-            count_current = count_current + 1
-        else:
-            count_expired = count_expired + 1
+    count_current = sum(1 for _, booking in results if booking.end > today)
+    count_expired = sum(1 for _, booking in results if booking.end <= today)
 
     return render_template('profile_index.html', current_user=current_user,
                            active_page=active_page,
